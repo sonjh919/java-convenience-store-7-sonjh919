@@ -2,6 +2,7 @@ package store.global.config;
 
 import store.controller.StoreController;
 import store.domain.Products;
+import store.domain.Promotions;
 import store.view.InputView;
 import store.view.OutputView;
 import store.view.View;
@@ -27,5 +28,9 @@ public enum AppConfig {
 
     public Products createProducts() {
         return new ProductFactory().createProducts();
+    }
+
+    public Promotions createPromotions() {
+        return new PromotionFactory().createPromotions();
     }
 }
