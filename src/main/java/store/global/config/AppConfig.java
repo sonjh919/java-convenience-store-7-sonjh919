@@ -1,8 +1,8 @@
 package store.global.config;
 
 import store.controller.StoreController;
-import store.domain.Products;
-import store.domain.Promotions;
+import store.domain.product.Products;
+import store.domain.promotion.Promotions;
 import store.view.InputView;
 import store.view.OutputView;
 import store.view.View;
@@ -11,7 +11,7 @@ public enum AppConfig {
     INSTANCE;
 
     public StoreController createStoreController() {
-        return new StoreController(createView());
+        return new StoreController(createView(), createProducts(), createPromotions());
     }
 
     public View createView() {
