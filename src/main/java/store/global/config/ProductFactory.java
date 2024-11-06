@@ -1,19 +1,19 @@
 package store.global.config;
 
 import java.util.List;
-import store.domain.Product;
-import store.domain.Products;
+import store.domain.product.Product;
+import store.domain.product.Products;
 
 public class ProductFactory extends ReadFile {
     private static final String PRODUCTS_FILE_PATH = "src/main/resources/products.md";
 
     private Product createProduct(String name, int price, int quantity, String promotion) {
-        return new Product(name, price, quantity, promotion);
+        return Product.of(name, price, quantity, promotion);
     }
 
     public Products createProducts() {
         List<Product> products = read(PRODUCTS_FILE_PATH);
-        return new Products(products);
+        return Products.from(products);
     }
 
     @Override

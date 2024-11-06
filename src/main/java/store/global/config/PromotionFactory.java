@@ -2,19 +2,19 @@ package store.global.config;
 
 import java.time.LocalDate;
 import java.util.List;
-import store.domain.Promotion;
-import store.domain.Promotions;
+import store.domain.promotion.Promotion;
+import store.domain.promotion.Promotions;
 
 public class PromotionFactory extends ReadFile {
     private static final String PROMOTIONS_FILE_PATH = "src/main/resources/promotions.md";
 
-    private Promotion createPromotion(String name, int buy, int get, LocalDate startDate, LocalDate endDate) {
-        return new Promotion(name, buy, get, startDate, endDate);
+    private Promotion createPromotion(String name, int productPurchaseCount, int productGiftCount, LocalDate startDate, LocalDate endDate) {
+        return Promotion.of(name, productPurchaseCount, productGiftCount, startDate, endDate);
     }
 
     public Promotions createPromotions() {
         List<Promotion> promotions = read(PROMOTIONS_FILE_PATH);
-        return new Promotions(promotions);
+        return Promotions.from(promotions);
     }
 
     @Override
