@@ -1,6 +1,7 @@
 package store.global.config;
 
 import store.controller.StoreController;
+import store.domain.Products;
 import store.view.InputView;
 import store.view.OutputView;
 import store.view.View;
@@ -22,5 +23,9 @@ public enum AppConfig {
 
     private OutputView createOutputView() {
         return new OutputView();
+    }
+
+    public Products createProducts() {
+        return new ProductFactory().createProducts();
     }
 }
