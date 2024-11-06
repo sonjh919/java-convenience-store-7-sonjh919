@@ -1,4 +1,4 @@
-package store.domain;
+package store.domain.promotion;
 
 import java.time.LocalDate;
 
@@ -9,7 +9,7 @@ public class Promotion {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public Promotion(String name, int productPurchaseCount, int productGiftCount, LocalDate startDate, LocalDate endDate) {
+    private Promotion(String name, int productPurchaseCount, int productGiftCount, LocalDate startDate, LocalDate endDate) {
         this.name = name;
         this.productPurchaseCount = productPurchaseCount;
         this.productGiftCount = productGiftCount;
@@ -17,4 +17,7 @@ public class Promotion {
         this.endDate = endDate;
     }
 
+    public static Promotion of(String name, int productPurchaseCount, int productGiftCount, LocalDate startDate, LocalDate endDate) {
+        return new Promotion(name, productPurchaseCount, productGiftCount, startDate, endDate);
+    }
 }
