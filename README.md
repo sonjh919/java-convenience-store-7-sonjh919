@@ -14,8 +14,8 @@
 🛠 구현 기능 목록
 ---
 ### 1. ⌨ 상품 목록 입력
-+ [ ] 구현에 필요한 상품 목록과 행사 목록을 파일 입출력을 통해 불러온다.
-  + [ ] `src/main/resources/products.md`과 `src/main/resources/promotions.md` 파일을 이용한다.
++ [x] 구현에 필요한 상품 목록과 행사 목록을 파일 입출력을 통해 불러온다.
+  + [x] `src/main/resources/products.md`과 `src/main/resources/promotions.md` 파일을 이용한다.
 
 ### 2. 🖨 상품 목록 출력
 + [ ] 환영 인사와 함께 상품명, 가격, 프로모션 이름, 재고를 안내한다. 
