@@ -17,8 +17,6 @@ public class StoreController {
 
     public void start() {
         showProducts();
-
-
     }
 
     private void showProducts() {
