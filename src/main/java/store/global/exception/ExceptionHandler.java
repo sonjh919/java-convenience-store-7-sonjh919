@@ -3,6 +3,7 @@ package store.global.exception;
 import static store.global.exception.ExceptionMessage.INVALID_FILE;
 
 import java.util.function.Function;
+import java.util.function.Supplier;
 import store.view.OutputView;
 
 public class ExceptionHandler {
@@ -21,5 +22,15 @@ public class ExceptionHandler {
                 throw new RuntimeException(e);
             }
         };
+    }
+
+    public static <T> T getValidInput(final Supplier<T> supplier) {
+        while (true) {
+            try {
+                return supplier.get();
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }

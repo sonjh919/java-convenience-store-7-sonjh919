@@ -7,6 +7,10 @@ public enum Output {
     PRODUCT("%s %,d원 %d개 %s"),
     PRODUCT_NO_QUANTITY("%s %,d원 재고 없음"),
 
+    PURCHASE("구매하실 상품명과 수량을 입력해 주세요. (예: [사이다-2],[감자칩-1])"),
+
+
+
     NEW_LINE(System.lineSeparator());
 
     final String message;
