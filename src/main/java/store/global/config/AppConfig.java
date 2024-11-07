@@ -3,6 +3,7 @@ package store.global.config;
 import store.controller.StoreController;
 import store.domain.product.Products;
 import store.domain.promotion.Promotions;
+import store.view.InputParser;
 import store.view.InputView;
 import store.view.OutputView;
 import store.view.View;
@@ -15,22 +16,26 @@ public enum AppConfig {
     }
 
     public View createView() {
-        return new View(createInputView(), createOutputView());
+        return new View(createInputView(), createOutputView(), createInputParser());
     }
 
     private InputView createInputView() {
         return new InputView();
     }
 
+    private InputParser createInputParser() {
+        return new InputParser();
+    }
+
     private OutputView createOutputView() {
         return new OutputView();
     }
 
-    public Products createProducts() {
+    private Products createProducts() {
         return new ProductFactory().createProducts();
     }
 
-    public Promotions createPromotions() {
+    private Promotions createPromotions() {
         return new PromotionFactory().createPromotions();
     }
 }

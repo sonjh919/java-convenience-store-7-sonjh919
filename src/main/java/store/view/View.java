@@ -10,10 +10,12 @@ import store.view.dto.GetPurchaseProductsDto;
 public class View {
     private final InputView inputView;
     private final OutputView outputView;
+    private final InputParser inputParser;
 
-    public View(final InputView inputView, final OutputView outputView) {
+    public View(final InputView inputView, final OutputView outputView, InputParser inputParser) {
         this.inputView = inputView;
         this.outputView = outputView;
+        this.inputParser = inputParser;
     }
 
     public void outputProducts(GetProductsDto products) {
@@ -26,6 +28,7 @@ public class View {
     public GetPurchaseProductsDto purchase() {
         outputView.printNewLine();
         outputView.printMessage(PURCHASE);
-        return inputView.purchase();
+
+        return inputParser.purchase(inputView.userInput());
     }
 }
