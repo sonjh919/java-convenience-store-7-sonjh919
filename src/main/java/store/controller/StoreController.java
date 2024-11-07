@@ -16,7 +16,13 @@ public class StoreController {
     }
 
     public void start() {
+        showProducts();
 
+
+    }
+
+    private void showProducts() {
+        view.outputProducts(products.getProducts());
     }
 
 }
