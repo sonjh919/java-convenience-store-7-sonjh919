@@ -1,6 +1,7 @@
 package store.global.config;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import store.domain.promotion.Promotion;
 import store.domain.promotion.Promotions;
@@ -13,8 +14,9 @@ public class PromotionFactory extends ReadFile {
     }
 
     public Promotions createPromotions() {
-        List<Promotion> promotions = read(PROMOTIONS_FILE_PATH);
-        return Promotions.from(promotions);
+        List<Promotion> promotions = new ArrayList<>(read(PROMOTIONS_FILE_PATH));
+        promotions.add(Promotion.of("null", 0, 0, LocalDate.now(), LocalDate.now()));
+        return Promotions.INSTANCE.from(promotions);
     }
 
     @Override

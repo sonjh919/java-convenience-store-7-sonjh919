@@ -12,7 +12,7 @@ public enum AppConfig {
     INSTANCE;
 
     public StoreController createStoreController() {
-        return new StoreController(createView(), createProducts(), createPromotions());
+        return new StoreController(createView(), createPromotions(), createProducts());
     }
 
     public View createView() {
