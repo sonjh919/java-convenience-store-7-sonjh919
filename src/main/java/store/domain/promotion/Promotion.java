@@ -1,6 +1,8 @@
 package store.domain.promotion;
 
+import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Promotion {
     private static final String PROMOTION_NULL = "null";
@@ -36,11 +38,24 @@ public class Promotion {
         }
     }
 
-    public boolean isPromotion() {
+    public boolean isNullPromotion() {
+        return name.equals(PROMOTION_EMPTY);
+    }
+
+    public boolean hasPromotion() {
         return !name.equals(PROMOTION_EMPTY);
     }
 
     public String getName() {
         return name;
+    }
+
+    public boolean isValidPromotionDate() {
+        LocalDateTime currentDateTime = DateTimes.now();
+        return currentDateTime.isAfter(startDate.atStartOfDay()) && currentDateTime.isBefore(endDate.atTime(23, 59, 59));
+    }
+
+    public int getPromotionCount() {
+        return productPurchaseCount + productGiftCount;
     }
 }

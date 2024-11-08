@@ -15,7 +15,7 @@ public class ProductFactory extends ReadFile {
 
     public Products createProducts() {
         List<Product> products = read(PRODUCTS_FILE_PATH);
-        return Products.from(products);
+        return Products.INSTANCE.from(products);
     }
 
     @Override

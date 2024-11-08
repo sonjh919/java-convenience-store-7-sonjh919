@@ -29,12 +29,32 @@ public class Product {
         return this.name.equals(name);
     }
 
-    public boolean isPromotion() {
-        return promotion.isPromotion();
+    public boolean isNullPromotion() {
+        return promotion.isNullPromotion();
+    }
+
+    public boolean hasPromotion() {
+        return promotion.hasPromotion();
+    }
+
+    public boolean isValidPromotionDate() {
+        return promotion.isValidPromotionDate();
+    }
+
+    public int calculatePromotionCount(int promotionCount, int count) {
+        return count - (quantity / promotionCount)*promotionCount;
+    }
+
+    public int countPromotionProduct(int promotionCount) {
+        return (quantity / promotionCount)*promotionCount;
     }
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public int getPrice() {
+        return price;
     }
 
     public Promotion getPromotion() {
