@@ -8,7 +8,6 @@ import java.util.List;
 public enum Promotions {
     INSTANCE;
 
-
     private final List<Promotion> promotions = new ArrayList<>();
 
     public Promotions from(List<Promotion> promotions) {

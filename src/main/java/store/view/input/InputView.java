@@ -1,4 +1,4 @@
-package store.view;
+package store.view.input;
 
 import camp.nextstep.edu.missionutils.Console;
 
