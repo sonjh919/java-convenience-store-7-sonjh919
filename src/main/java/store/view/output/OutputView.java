@@ -1,11 +1,13 @@
-package store.view;
+package store.view.output;
 
-import static store.view.Output.NEW_LINE;
-import static store.view.Output.PRODUCT;
-import static store.view.Output.PRODUCT_NO_QUANTITY;
-import static store.view.Output.PRODUCT_SEPARATOR;
+import static store.view.output.Output.NEW_LINE;
+import static store.view.output.Output.PRODUCT;
+import static store.view.output.Output.PRODUCT_NO_QUANTITY;
+import static store.view.output.Output.PRODUCT_SEPARATOR;
+import static store.view.output.Output.PROMOTION_SHORTAGE;
 
 import store.domain.product.dto.GetProductsDto;
+import store.view.dto.GetPurchaseProductDto;
 
 public class OutputView {
 
@@ -37,5 +39,10 @@ public class OutputView {
             return PRODUCT_NO_QUANTITY.message;
         }
         return PRODUCT.message;
+    }
+
+    public void printShortage(String name, int shortage) {
+        System.out.printf(String.format(PROMOTION_SHORTAGE.message, name, shortage));
+        printNewLine();
     }
 }

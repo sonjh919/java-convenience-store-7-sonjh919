@@ -1,4 +1,4 @@
-package store.view;
+package store.view.output;
 
 public enum Output {
     WELCOME("안녕하세요. W편의점입니다."),
@@ -9,7 +9,7 @@ public enum Output {
 
     PURCHASE("구매하실 상품명과 수량을 입력해 주세요. (예: [사이다-2],[감자칩-1])"),
 
-
+    PROMOTION_SHORTAGE("현재 %s %d개는 프로모션 할인이 적용되지 않습니다. 그래도 구매하시겠습니까? (Y/N)"),
 
     NEW_LINE(System.lineSeparator());
 
