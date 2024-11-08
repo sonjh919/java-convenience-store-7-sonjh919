@@ -21,7 +21,7 @@ public enum Answer {
         throw new IllegalArgumentException(INVALID_YES_OR_NO.message);
     }
 
-    public boolean isYes() {
-        return this == YES;
+    public boolean isNo() {
+        return this == NO;
     }
 }

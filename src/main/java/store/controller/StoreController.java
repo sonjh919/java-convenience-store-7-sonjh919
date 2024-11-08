@@ -63,6 +63,6 @@ public class StoreController {
     }
 
     private boolean reduceCount(String name, int shortage) {
-        return (getValidInput(() -> view.inputShortageProduct(name, shortage))).isYes();
+        return (getValidInput(() -> view.inputShortageProduct(name, shortage))).isNo();
     }
 }
