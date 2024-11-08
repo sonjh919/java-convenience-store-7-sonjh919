@@ -59,7 +59,7 @@ public class StoreController {
             receipt.addPurchaseProduct(purchaseProduct);
         }
         receipt.addPromotionProduct(
-                new PromotionProduct(purchaseProduct.getName(), products.countPromotionProduct(purchaseProduct)));
+                PromotionProduct.of(purchaseProduct.getName(), products.countPromotionProduct(purchaseProduct)));
     }
 
     private boolean reduceCount(String name, int shortage) {

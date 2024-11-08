@@ -4,9 +4,13 @@ public class PromotionProduct {
     private String name;
     private int count;
 
-    public PromotionProduct(String name, int count) {
+    private PromotionProduct(String name, int count) {
         this.name = name;
         this.count = count;
+    }
+
+    public static PromotionProduct of(String name, int count) {
+        return new PromotionProduct(name, count);
     }
 
     public String getName() {
