@@ -1,5 +1,6 @@
 package store.domain.product;
 
+import static store.global.exception.ExceptionMessage.EXCEED_PRODUCT_COUNT;
 import static store.global.exception.ExceptionMessage.NON_EXISTENT_PRODUCT;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public enum Products {
 
     private void validateCanPurchaseProduct(PurchaseProduct purchaseProduct) {
         if (getTotalQuantity(purchaseProduct) < purchaseProduct.getCount()) {
-            throw new IllegalArgumentException(NON_EXISTENT_PRODUCT.message);
+            throw new IllegalArgumentException(EXCEED_PRODUCT_COUNT.message);
         }
     }
 
