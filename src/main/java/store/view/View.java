@@ -1,5 +1,6 @@
 package store.view;
 
+import static store.view.output.Output.MEMBERSHIP_DISCOUNT;
 import static store.view.output.Output.PRODUCT_LIST;
 import static store.view.output.Output.PURCHASE;
 import static store.view.output.Output.WELCOME;
@@ -40,6 +41,12 @@ public class View {
 
     public Answer inputAddPromotionProduct(String name) {
         outputView.printAddPromotionProduct(name);
+
+        return Answer.from(inputView.userInput());
+    }
+
+    public Answer inputMembershipDiscount() {
+        outputView.printMessage(MEMBERSHIP_DISCOUNT);
 
         return Answer.from(inputView.userInput());
     }

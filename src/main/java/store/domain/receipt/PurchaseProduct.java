@@ -40,4 +40,8 @@ public class PurchaseProduct {
     public void increaseCount() {
         this.count++;
     }
+
+    public int getPrices() {
+        return price * count;
+    }
 }

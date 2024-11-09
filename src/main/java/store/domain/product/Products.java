@@ -97,7 +97,8 @@ public enum Products {
     }
 
     public int countPromotionProduct(PurchaseProduct purchaseProduct) {
-        return purchaseProduct.getCount()/getPromotionCount(purchaseProduct);
+        Product product = findPromotionProductByName(purchaseProduct);
+        return Math.min(product.getQuantity(), purchaseProduct.getCount())/getPromotionCount(purchaseProduct);
     }
 
     public boolean isPromotionQuantityRequirement(PurchaseProduct purchaseProduct) {
@@ -116,5 +117,10 @@ public enum Products {
                 .findFirst()
                 .map(Product::getPrice)
                 .orElseThrow(() -> new IllegalArgumentException(NON_EXISTENT_PRODUCT.message));
+    }
+
+    public Promotion getPromotionByName(PurchaseProduct purchaseProduct) {
+        Product product = findPromotionProductByName(purchaseProduct);
+        return product.getPromotion();
     }
 }

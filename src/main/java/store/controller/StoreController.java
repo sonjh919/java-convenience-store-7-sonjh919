@@ -27,7 +27,8 @@ public class StoreController {
         showProducts();
         PurchaseProducts purchaseProducts = getValidInput(this::purchase);
 
-        applyPromotions(purchaseProducts);
+        applyPromotionDiscount(purchaseProducts);
+        applyMembershipDiscount();
         receipt.print();
     }
 
@@ -42,16 +43,28 @@ public class StoreController {
         return purchaseProducts;
     }
 
-    private void applyPromotions(PurchaseProducts purchaseProducts) {
+    private void applyPromotionDiscount(PurchaseProducts purchaseProducts) {
         purchaseProducts.getPurchaseProducts().forEach(purchaseProduct -> {
             if (products.canApplyPromotion(purchaseProduct)) {
                 checkPromotionProductShortage(purchaseProduct);
                 checkPromotionQuantityRequirement(purchaseProduct);
+
+                receipt.addPromotionProduct(
+                        PromotionProduct.of(purchaseProduct.getName(), products.countPromotionProduct(purchaseProduct),
+                                products.getPriceByName(purchaseProduct.getName()), products.getPromotionByName(purchaseProduct)));
             }
             receipt.addPurchaseProduct(purchaseProduct);
-            receipt.addPromotionProduct(
-                    PromotionProduct.of(purchaseProduct.getName(), products.countPromotionProduct(purchaseProduct)));
         });
+    }
+
+    private void applyMembershipDiscount() {
+        if (IsApplyMembershipDiscount()) {
+            receipt.getMembershipDiscount();
+        }
+    }
+
+    private boolean IsApplyMembershipDiscount() {
+        return (getValidInput(view::inputMembershipDiscount)).isYes();
     }
 
     private void checkPromotionProductShortage(PurchaseProduct purchaseProduct) {
@@ -65,7 +78,7 @@ public class StoreController {
 
     private void checkPromotionQuantityRequirement(PurchaseProduct purchaseProduct) {
         if (products.isPromotionQuantityRequirement(purchaseProduct)) {
-            if(addPromotionProduct(purchaseProduct.getName())) {
+            if (addPromotionProduct(purchaseProduct.getName())) {
                 purchaseProduct.increaseCount();
             }
         }

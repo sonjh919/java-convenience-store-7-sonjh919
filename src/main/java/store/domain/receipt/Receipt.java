@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Receipt {
+    private static final int MEMBERSHIP_DISCOUNT_LIMIT = 8000;
+    private static final double MEMBERSHIP_DISCOUNT_RATE = 0.3;
+
     private List<PurchaseProduct> purchaseProducts;
     private List<PromotionProduct> promotionProducts;
+    private int membershipDiscount;
 
     public Receipt() {
         this.purchaseProducts = new ArrayList<>();
         this.promotionProducts = new ArrayList<>();
+        this.membershipDiscount = 0;
     }
 
     public void addPurchaseProduct(PurchaseProduct purchaseProduct) {
@@ -21,17 +26,64 @@ public class Receipt {
     }
 
     public void print() {
-        System.out.println("-----------");
+        System.out.println("==============W 편의점================");
+        System.out.println("상품명\t\t수량\t금액");
         purchaseProducts.forEach(purchaseProduct -> {
-            System.out.println("purchaseProduct.getName() = " + purchaseProduct.getName());
-            System.out.println("purchaseProduct.getPrice() = " + purchaseProduct.getPrice());
-            System.out.println("purchaseProduct.getCount() = " + purchaseProduct.getCount());
+            System.out.println(purchaseProduct.getName() + "\t\t" + purchaseProduct.getCount() + "\t" + purchaseProduct.getCount()*purchaseProduct.getPrice());
         });
 
-        System.out.println("-----------");
+        System.out.println("=============증\t정===============");
         promotionProducts.forEach(promotionProduct -> {
-            System.out.println("promotionProduct.getName() = " + promotionProduct.getName());
-            System.out.println("promotionProduct.getCount() = " + promotionProduct.getCount());
+            System.out.println(promotionProduct.getName() + "\t\t" + promotionProduct.getCount());
         });
+
+        System.out.println("====================================");
+        System.out.println("총구매액\t\t" + getTotalCount() + "\t" + getTotalPrice());
+        System.out.println("행사할인\t\t\t" + -getPromotionDiscountPrice());
+        System.out.println("멤버십할인\t\t\t" + -membershipDiscount);
+        System.out.println("내실돈\t\t\t" + (getTotalPrice() - getPromotionDiscountPrice() - membershipDiscount));
+    }
+
+    private int getTotalCount() {
+        return purchaseProducts.stream()
+                .mapToInt(PurchaseProduct::getCount)
+                .sum();
+    }
+
+    public void getMembershipDiscount() {
+        int totalPrice = getTotalPrice();
+        int promotionDiscountPrice = getTotalPromotionDiscountPrice();
+        int membershipDiscountPrice = (int) ((totalPrice - promotionDiscountPrice)*MEMBERSHIP_DISCOUNT_RATE);
+
+        this.membershipDiscount = validateMembershipDiscountPrice(totalPrice, promotionDiscountPrice, membershipDiscountPrice);
+    }
+
+    private int getTotalPromotionDiscountPrice() {
+        return promotionProducts.stream()
+                .mapToInt(PromotionProduct::getTotalPrices)
+                .sum();
+    }
+
+    private int validateMembershipDiscountPrice(int totalPrice, int promotionDiscountPrice, int membershipDiscountPrice) {
+        if(membershipDiscountPrice > MEMBERSHIP_DISCOUNT_LIMIT){
+            membershipDiscountPrice = MEMBERSHIP_DISCOUNT_LIMIT;
+        }
+
+        if(totalPrice < promotionDiscountPrice + membershipDiscountPrice){
+            membershipDiscountPrice = totalPrice - promotionDiscountPrice;
+        }
+        return membershipDiscountPrice;
+    }
+
+    private int getTotalPrice() {
+        return purchaseProducts.stream()
+                .mapToInt(PurchaseProduct::getPrices)
+                .sum();
+    }
+
+    private int getPromotionDiscountPrice() {
+        return  promotionProducts.stream()
+                .mapToInt(PromotionProduct::getPrices)
+                .sum();
     }
 }
