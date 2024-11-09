@@ -128,19 +128,23 @@ public enum Products {
     public void reduceProductQuantity(PurchaseProduct purchaseProduct) {
         Product product = findPromotionProductByName(purchaseProduct);
         Product nullPromotionProduct = findNullPromotionProductByName(purchaseProduct);
-        if(product==null) {
+
+        if(isNullOrExhausted(product)) {
             nullPromotionProduct.reduceQuantity(purchaseProduct.getCount());
             return;
         }
 
-        if(product.isExhaustion()){
-            nullPromotionProduct.reduceQuantity(purchaseProduct.getCount());
-            return;
-        }
+        reduceProductOfShortage(product, nullPromotionProduct, purchaseProduct);
+    }
 
+    private void reduceProductOfShortage(Product product, Product nullPromotionProduct, PurchaseProduct purchaseProduct) {
         int shortage = product.reduceQuantity(purchaseProduct.getCount());
         if(shortage < 0) {
             nullPromotionProduct.reduceQuantity(-shortage);
         }
+    }
+
+    private boolean isNullOrExhausted(Product product) {
+        return product == null || product.isExhaustion();
     }
 }
