@@ -60,4 +60,18 @@ public class Product {
     public Promotion getPromotion() {
         return promotion;
     }
+
+    public int reduceQuantity(int count) {
+        quantity -= count;
+        if (quantity < 0) {
+            int shortage = quantity;
+            quantity = 0;
+            return shortage;
+        }
+        return quantity;
+    }
+
+    public boolean isExhaustion() {
+        return quantity == 0;
+    }
 }

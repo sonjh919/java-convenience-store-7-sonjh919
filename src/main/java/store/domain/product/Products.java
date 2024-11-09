@@ -123,4 +123,23 @@ public enum Products {
         Product product = findPromotionProductByName(purchaseProduct);
         return product.getPromotion();
     }
+
+    public void reduceProductQuantity(PurchaseProduct purchaseProduct) {
+        Product product = findPromotionProductByName(purchaseProduct);
+        Product nullPromotionProduct = findNullPromotionProductByName(purchaseProduct);
+        if(product==null) {
+            nullPromotionProduct.reduceQuantity(purchaseProduct.getCount());
+            return;
+        }
+
+        if(product.isExhaustion()){
+            nullPromotionProduct.reduceQuantity(purchaseProduct.getCount());
+            return;
+        }
+
+        int shortage = product.reduceQuantity(purchaseProduct.getCount());
+        if(shortage < 0) {
+            nullPromotionProduct.reduceQuantity(-shortage);
+        }
+    }
 }

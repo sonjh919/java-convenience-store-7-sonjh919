@@ -26,22 +26,29 @@ public class Receipt {
     }
 
     public void print() {
+        System.out.println();
         System.out.println("==============W 편의점================");
         System.out.println("상품명\t\t수량\t금액");
         purchaseProducts.forEach(purchaseProduct -> {
-            System.out.println(purchaseProduct.getName() + "\t\t" + purchaseProduct.getCount() + "\t" + purchaseProduct.getCount()*purchaseProduct.getPrice());
+            System.out.printf("%s\t\t%,d\t%,d", purchaseProduct.getName(), purchaseProduct.getCount(), purchaseProduct.getCount()*purchaseProduct.getPrice());
+            System.out.println();
         });
 
         System.out.println("=============증\t정===============");
         promotionProducts.forEach(promotionProduct -> {
-            System.out.println(promotionProduct.getName() + "\t\t" + promotionProduct.getCount());
+            System.out.printf("%s\t\t%,d", promotionProduct.getName(), promotionProduct.getCount());
         });
 
+        System.out.println();
         System.out.println("====================================");
-        System.out.println("총구매액\t\t" + getTotalCount() + "\t" + getTotalPrice());
-        System.out.println("행사할인\t\t\t" + -getPromotionDiscountPrice());
-        System.out.println("멤버십할인\t\t\t" + -membershipDiscount);
-        System.out.println("내실돈\t\t\t" + (getTotalPrice() - getPromotionDiscountPrice() - membershipDiscount));
+        System.out.printf("총구매액\t\t%,d\t%,d", getTotalCount(), getTotalPrice());
+        System.out.println();
+        System.out.printf("행사할인\t\t\t%,d", -getPromotionDiscountPrice());
+        System.out.println();
+        System.out.printf("멤버십할인\t\t\t%,d", -membershipDiscount);
+        System.out.println();
+        System.out.printf("내실돈\t\t\t%,d",(getTotalPrice() - getPromotionDiscountPrice() - membershipDiscount));
+        System.out.println();
     }
 
     private int getTotalCount() {
@@ -85,5 +92,11 @@ public class Receipt {
         return  promotionProducts.stream()
                 .mapToInt(PromotionProduct::getPrices)
                 .sum();
+    }
+
+    public void clear() {
+        purchaseProducts.clear();
+        promotionProducts.clear();
+        membershipDiscount = 0;
     }
 }

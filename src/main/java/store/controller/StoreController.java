@@ -24,12 +24,18 @@ public class StoreController {
     }
 
     public void start() {
-        showProducts();
-        PurchaseProducts purchaseProducts = getValidInput(this::purchase);
+        do {
+            receipt.clear();
+            showProducts();
+            PurchaseProducts purchaseProducts = getValidInput(this::purchase);
 
-        applyPromotionDiscount(purchaseProducts);
-        applyMembershipDiscount();
-        receipt.print();
+            applyPromotionDiscount(purchaseProducts);
+            applyMembershipDiscount();
+            receipt.print();
+
+            manageProducts(purchaseProducts);
+
+        } while (!getValidInput(view::inputContinue).isNo());
     }
 
     private void showProducts() {
@@ -90,5 +96,9 @@ public class StoreController {
 
     private boolean addPromotionProduct(String name) {
         return (getValidInput(() -> view.inputAddPromotionProduct(name))).isYes();
+    }
+
+    private void manageProducts(PurchaseProducts purchaseProducts) {
+        purchaseProducts.getPurchaseProducts().forEach(products::reduceProductQuantity);
     }
 }

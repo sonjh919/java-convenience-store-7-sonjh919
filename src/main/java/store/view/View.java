@@ -1,5 +1,6 @@
 package store.view;
 
+import static store.view.output.Output.CONTINUE;
 import static store.view.output.Output.MEMBERSHIP_DISCOUNT;
 import static store.view.output.Output.PRODUCT_LIST;
 import static store.view.output.Output.PURCHASE;
@@ -34,20 +35,29 @@ public class View {
     }
 
     public Answer inputShortageProduct(String name, int shortage) {
+        outputView.printNewLine();
         outputView.printShortage(name, shortage);
 
         return Answer.from(inputView.userInput());
     }
 
     public Answer inputAddPromotionProduct(String name) {
+        outputView.printNewLine();
         outputView.printAddPromotionProduct(name);
 
         return Answer.from(inputView.userInput());
     }
 
     public Answer inputMembershipDiscount() {
+        outputView.printNewLine();
         outputView.printMessage(MEMBERSHIP_DISCOUNT);
 
+        return Answer.from(inputView.userInput());
+    }
+
+    public Answer inputContinue() {
+        outputView.printNewLine();
+        outputView.printMessage(CONTINUE);
         return Answer.from(inputView.userInput());
     }
 }
