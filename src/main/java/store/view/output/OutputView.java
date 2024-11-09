@@ -7,6 +7,7 @@ import static store.view.output.Output.PRODUCT_NO_QUANTITY;
 import static store.view.output.Output.PRODUCT_SEPARATOR;
 import static store.view.output.Output.PROMOTION_SHORTAGE;
 
+import store.domain.product.dto.GetProductDto;
 import store.domain.product.dto.GetProductsDto;
 
 public class OutputView {
@@ -28,17 +29,19 @@ public class OutputView {
 
         productsDto.GetProductDtos().forEach(productDto -> {
             System.out.print(PRODUCT_SEPARATOR.message);
-            System.out.printf(String.format(checkQuantity(productDto.quantity()),
-                    productDto.name(), productDto.price(), productDto.quantity(), productDto.promotion()));
+            printProduct(productDto);
             printNewLine();
         });
     }
 
-    private String checkQuantity(int quantity) {
-        if (quantity == 0) {
-            return PRODUCT_NO_QUANTITY.message;
+    private void printProduct(GetProductDto productDto) {
+        if (productDto.quantity() == 0) {
+            System.out.printf(PRODUCT_NO_QUANTITY.message,
+                    productDto.name(), productDto.price(), productDto.promotion());
+            return;
         }
-        return PRODUCT.message;
+        System.out.printf(PRODUCT.message,
+                productDto.name(), productDto.price(), productDto.quantity(), productDto.promotion());
     }
 
     public void printShortage(String name, int shortage) {
