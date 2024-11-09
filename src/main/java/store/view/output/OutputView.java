@@ -1,5 +1,6 @@
 package store.view.output;
 
+import static store.view.output.Output.ADD_PROMOTION_PRODUCT_COUNT;
 import static store.view.output.Output.NEW_LINE;
 import static store.view.output.Output.PRODUCT;
 import static store.view.output.Output.PRODUCT_NO_QUANTITY;
@@ -7,7 +8,6 @@ import static store.view.output.Output.PRODUCT_SEPARATOR;
 import static store.view.output.Output.PROMOTION_SHORTAGE;
 
 import store.domain.product.dto.GetProductsDto;
-import store.view.dto.GetPurchaseProductDto;
 
 public class OutputView {
 
@@ -43,6 +43,11 @@ public class OutputView {
 
     public void printShortage(String name, int shortage) {
         System.out.printf(String.format(PROMOTION_SHORTAGE.message, name, shortage));
+        printNewLine();
+    }
+
+    public void printAddPromotionProduct(String name) {
+        System.out.printf(String.format(ADD_PROMOTION_PRODUCT_COUNT.message, name));
         printNewLine();
     }
 }

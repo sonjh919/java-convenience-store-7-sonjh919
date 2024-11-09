@@ -36,4 +36,8 @@ public class PurchaseProduct {
     public void reduceCount(int shortage) {
         this.count = count - shortage;
     }
+
+    public void increaseCount() {
+        this.count++;
+    }
 }

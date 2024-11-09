@@ -41,8 +41,12 @@ public class Product {
         return promotion.isValidPromotionDate();
     }
 
-    public int countPromotionProduct(int promotionCount) {
+    public int countMaxPromotionProduct(int promotionCount) {
         return (quantity / promotionCount)*promotionCount;
+    }
+
+    public int countPromotionProduct(int promotionCount) {
+        return quantity / promotionCount;
     }
 
     public int getQuantity() {

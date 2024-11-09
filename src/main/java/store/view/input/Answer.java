@@ -24,4 +24,8 @@ public enum Answer {
     public boolean isNo() {
         return this == NO;
     }
+
+    public boolean isYes() {
+        return this == YES;
+    }
 }

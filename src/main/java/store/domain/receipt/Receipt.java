@@ -22,12 +22,16 @@ public class Receipt {
 
     public void print() {
         System.out.println("-----------");
-        System.out.println("purchaseProducts.getFirst().getName() = " + purchaseProducts.getFirst().getName());
-        System.out.println("purchaseProducts.get(0).getPrice() = " + purchaseProducts.getFirst().getPrice());
-        System.out.println("purchaseProducts.getFirst().getCount() = " + purchaseProducts.getFirst().getCount());
-        System.out.println("-----------");
-        System.out.println("promotionProducts.getFirst().getName() = " + promotionProducts.getFirst().getName());
-        System.out.println("promotionProducts.getFirst().getCount() = " + promotionProducts.getFirst().getCount());
+        purchaseProducts.forEach(purchaseProduct -> {
+            System.out.println("purchaseProduct.getName() = " + purchaseProduct.getName());
+            System.out.println("purchaseProduct.getPrice() = " + purchaseProduct.getPrice());
+            System.out.println("purchaseProduct.getCount() = " + purchaseProduct.getCount());
+        });
 
+        System.out.println("-----------");
+        promotionProducts.forEach(promotionProduct -> {
+            System.out.println("promotionProduct.getName() = " + promotionProduct.getName());
+            System.out.println("promotionProduct.getCount() = " + promotionProduct.getCount());
+        });
     }
 }

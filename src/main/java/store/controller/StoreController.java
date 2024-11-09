@@ -45,24 +45,37 @@ public class StoreController {
     private void applyPromotions(PurchaseProducts purchaseProducts) {
         purchaseProducts.getPurchaseProducts().forEach(purchaseProduct -> {
             if (products.canApplyPromotion(purchaseProduct)) {
-                applyPromotion(purchaseProduct);
+                checkPromotionProductShortage(purchaseProduct);
+                checkPromotionQuantityRequirement(purchaseProduct);
             }
+            receipt.addPurchaseProduct(purchaseProduct);
+            receipt.addPromotionProduct(
+                    PromotionProduct.of(purchaseProduct.getName(), products.countPromotionProduct(purchaseProduct)));
         });
     }
 
-    private void applyPromotion(PurchaseProduct purchaseProduct) {
+    private void checkPromotionProductShortage(PurchaseProduct purchaseProduct) {
         int shortage = products.calculateShortageProduct(purchaseProduct);
         if (shortage > 0) {
-            if (reduceCount(purchaseProduct.getName(), shortage)) {
+            if (reduceCountForShortageProduct(purchaseProduct.getName(), shortage)) {
                 purchaseProduct.reduceCount(shortage);
             }
-            receipt.addPurchaseProduct(purchaseProduct);
         }
-        receipt.addPromotionProduct(
-                PromotionProduct.of(purchaseProduct.getName(), products.countPromotionProduct(purchaseProduct)));
     }
 
-    private boolean reduceCount(String name, int shortage) {
+    private void checkPromotionQuantityRequirement(PurchaseProduct purchaseProduct) {
+        if (products.isPromotionQuantityRequirement(purchaseProduct)) {
+            if(addPromotionProduct(purchaseProduct.getName())) {
+                purchaseProduct.increaseCount();
+            }
+        }
+    }
+
+    private boolean reduceCountForShortageProduct(String name, int shortage) {
         return (getValidInput(() -> view.inputShortageProduct(name, shortage))).isNo();
+    }
+
+    private boolean addPromotionProduct(String name) {
+        return (getValidInput(() -> view.inputAddPromotionProduct(name))).isYes();
     }
 }

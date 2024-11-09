@@ -37,4 +37,10 @@ public class View {
 
         return Answer.from(inputView.userInput());
     }
+
+    public Answer inputAddPromotionProduct(String name) {
+        outputView.printAddPromotionProduct(name);
+
+        return Answer.from(inputView.userInput());
+    }
 }

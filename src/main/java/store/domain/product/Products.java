@@ -76,7 +76,6 @@ public enum Products {
         return product.isValidPromotionDate();
     }
 
-
     private int getPromotionCount(PurchaseProduct purchaseProduct) {
         Promotion promotion = findPromotionByProduct(purchaseProduct);
         return promotion.getPromotionCount();
@@ -88,13 +87,27 @@ public enum Products {
     }
 
     public int calculateShortageProduct(PurchaseProduct purchaseProduct) {
-        return purchaseProduct.getCount() - countPromotionProduct(purchaseProduct);
+        int promotionCount = getPromotionCount(purchaseProduct);
+        Product product = findPromotionProductByName(purchaseProduct);
+        int countPromotionProduct = product.countMaxPromotionProduct(promotionCount);
+        if(countPromotionProduct == 0) {
+            return 0;
+        }
+        return purchaseProduct.getCount() - countPromotionProduct;
     }
 
     public int countPromotionProduct(PurchaseProduct purchaseProduct) {
-        int promotionCount = getPromotionCount(purchaseProduct);
+        return purchaseProduct.getCount()/getPromotionCount(purchaseProduct);
+    }
+
+    public boolean isPromotionQuantityRequirement(PurchaseProduct purchaseProduct) {
         Product product = findPromotionProductByName(purchaseProduct);
-        return product.countPromotionProduct(promotionCount);
+        int promotionCount = getPromotionCount(purchaseProduct);
+
+        if((purchaseProduct.getCount() % promotionCount) + 1 == promotionCount) {
+            return purchaseProduct.getCount() + 1 <= product.getQuantity();
+        }
+        return false;
     }
 
     public int getPriceByName(String name) {
@@ -104,5 +117,4 @@ public enum Products {
                 .map(Product::getPrice)
                 .orElseThrow(() -> new IllegalArgumentException(NON_EXISTENT_PRODUCT.message));
     }
-
 }
