@@ -16,7 +16,7 @@ abstract class ReadFile<T> {
     private List<T> readLines(String path) throws Exception {
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             return br.lines()
-                    .skip(1)  // 첫 번째 줄(헤더)을 건너뜀
+                    .skip(1)
                     .map(this::parseLine)
                     .toList();
         }

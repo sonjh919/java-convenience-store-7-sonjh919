@@ -73,15 +73,9 @@ public enum Products {
         if (product == null) {
             return false;
         }
-        ;
         return product.isValidPromotionDate();
     }
 
-    public int calculateShortageProduct(PurchaseProduct purchaseProduct) {
-        int promotionCount = getPromotionCount(purchaseProduct);
-        Product product = findPromotionProductByName(purchaseProduct);
-        return product.calculatePromotionCount(promotionCount, purchaseProduct.getCount());
-    }
 
     private int getPromotionCount(PurchaseProduct purchaseProduct) {
         Promotion promotion = findPromotionByProduct(purchaseProduct);
@@ -91,6 +85,10 @@ public enum Products {
     private Promotion findPromotionByProduct(PurchaseProduct purchaseProduct) {
         Product product = findPromotionProductByName(purchaseProduct);
         return product.getPromotion();
+    }
+
+    public int calculateShortageProduct(PurchaseProduct purchaseProduct) {
+        return purchaseProduct.getCount() - countPromotionProduct(purchaseProduct);
     }
 
     public int countPromotionProduct(PurchaseProduct purchaseProduct) {
