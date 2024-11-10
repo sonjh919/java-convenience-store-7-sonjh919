@@ -36,7 +36,9 @@ public class Receipt {
 
         System.out.println("=============증\t정===============");
         promotionProducts.forEach(promotionProduct -> {
-            System.out.printf("%s\t\t%,d", promotionProduct.getName(), promotionProduct.getCount());
+            if(promotionProduct.getCount() > 0){
+                System.out.printf("%s\t\t%,d\n", promotionProduct.getName(), promotionProduct.getCount());
+            }
         });
 
         System.out.println();
