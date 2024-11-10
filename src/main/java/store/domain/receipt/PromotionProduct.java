@@ -1,6 +1,7 @@
 package store.domain.receipt;
 
 import store.domain.promotion.Promotion;
+import store.domain.receipt.dto.GetPromotionProductDto;
 
 public class PromotionProduct {
     private String name;
@@ -33,5 +34,9 @@ public class PromotionProduct {
 
     public int getTotalPrices() {
         return promotion.getPromotionCount() * price;
+    }
+
+    public GetPromotionProductDto getPromotionProductDto() {
+        return new GetPromotionProductDto(name, count, price, promotion.getPromotionCount());
     }
 }

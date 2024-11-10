@@ -26,65 +26,12 @@ public enum Products {
                 .toList());
     }
 
-    public void validateExistProducts(PurchaseProduct purchaseProduct) {
-        validateIsAvailableProduct(purchaseProduct);
-        validateCanPurchaseProduct(purchaseProduct);
-    }
-
-    private void validateIsAvailableProduct(PurchaseProduct purchaseProduct) {
-        findProductsByName(purchaseProduct).stream()
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(NON_EXISTENT_PRODUCT.message));
-    }
-
-    private void validateCanPurchaseProduct(PurchaseProduct purchaseProduct) {
-        if (getTotalQuantity(purchaseProduct) < purchaseProduct.getCount()) {
-            throw new IllegalArgumentException(EXCEED_PRODUCT_COUNT.message);
-        }
-    }
-
-    private int getTotalQuantity(PurchaseProduct purchaseProduct) {
-        return findProductsByName(purchaseProduct).stream()
-                .mapToInt(Product::getQuantity)
-                .sum();
-    }
-
-    private List<Product> findProductsByName(PurchaseProduct purchaseProduct) {
-        return products.stream()
-                .filter(product -> product.isSameName(purchaseProduct.getName()))
-                .toList();
-    }
-
-    private Product findNullPromotionProductByName(PurchaseProduct purchaseProduct) {
-        return findProductsByName(purchaseProduct).stream()
-                .filter(Product::isNullPromotion)
-                .findFirst().
-                orElse(null);
-    }
-
-    private Product findPromotionProductByName(PurchaseProduct purchaseProduct) {
-        return findProductsByName(purchaseProduct).stream()
-                .filter(Product::hasPromotion)
-                .findFirst().
-                orElse(null);
-    }
-
     public boolean canApplyPromotion(PurchaseProduct purchaseProduct) {
         Product product = findPromotionProductByName(purchaseProduct);
         if (product == null) {
             return false;
         }
         return product.isValidPromotionDate();
-    }
-
-    private int getPromotionCount(PurchaseProduct purchaseProduct) {
-        Promotion promotion = findPromotionByProduct(purchaseProduct);
-        return promotion.getPromotionCount();
-    }
-
-    private Promotion findPromotionByProduct(PurchaseProduct purchaseProduct) {
-        Product product = findPromotionProductByName(purchaseProduct);
-        return product.getPromotion();
     }
 
     public int calculateShortageProduct(PurchaseProduct purchaseProduct) {
@@ -135,6 +82,59 @@ public enum Products {
         }
 
         reduceProductOfShortage(product, nullPromotionProduct, purchaseProduct);
+    }
+
+    public void validateExistProducts(PurchaseProduct purchaseProduct) {
+        validateIsAvailableProduct(purchaseProduct);
+        validateCanPurchaseProduct(purchaseProduct);
+    }
+
+    private void validateIsAvailableProduct(PurchaseProduct purchaseProduct) {
+        findProductsByName(purchaseProduct).stream()
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(NON_EXISTENT_PRODUCT.message));
+    }
+
+    private void validateCanPurchaseProduct(PurchaseProduct purchaseProduct) {
+        if (getTotalQuantity(purchaseProduct) < purchaseProduct.getCount()) {
+            throw new IllegalArgumentException(EXCEED_PRODUCT_COUNT.message);
+        }
+    }
+
+    private int getTotalQuantity(PurchaseProduct purchaseProduct) {
+        return findProductsByName(purchaseProduct).stream()
+                .mapToInt(Product::getQuantity)
+                .sum();
+    }
+
+    private List<Product> findProductsByName(PurchaseProduct purchaseProduct) {
+        return products.stream()
+                .filter(product -> product.isSameName(purchaseProduct.getName()))
+                .toList();
+    }
+
+    private Product findNullPromotionProductByName(PurchaseProduct purchaseProduct) {
+        return findProductsByName(purchaseProduct).stream()
+                .filter(Product::isNullPromotion)
+                .findFirst().
+                orElse(null);
+    }
+
+    private Product findPromotionProductByName(PurchaseProduct purchaseProduct) {
+        return findProductsByName(purchaseProduct).stream()
+                .filter(Product::hasPromotion)
+                .findFirst().
+                orElse(null);
+    }
+
+    private int getPromotionCount(PurchaseProduct purchaseProduct) {
+        Promotion promotion = findPromotionByProduct(purchaseProduct);
+        return promotion.getPromotionCount();
+    }
+
+    private Promotion findPromotionByProduct(PurchaseProduct purchaseProduct) {
+        Product product = findPromotionProductByName(purchaseProduct);
+        return product.getPromotion();
     }
 
     private void reduceProductOfShortage(Product product, Product nullPromotionProduct, PurchaseProduct purchaseProduct) {

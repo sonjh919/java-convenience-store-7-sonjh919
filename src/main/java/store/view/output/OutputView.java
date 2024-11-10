@@ -6,9 +6,24 @@ import static store.view.output.Output.PRODUCT;
 import static store.view.output.Output.PRODUCT_NO_QUANTITY;
 import static store.view.output.Output.PRODUCT_SEPARATOR;
 import static store.view.output.Output.PROMOTION_SHORTAGE;
+import static store.view.output.OutputReceipt.AMOUNT_HEADER;
+import static store.view.output.OutputReceipt.MEMBERSHIP_DISCOUNT_AMOUNT;
+import static store.view.output.OutputReceipt.PAY_AMOUNT;
+import static store.view.output.OutputReceipt.PROMOTION_DISCOUNT_AMOUNT;
+import static store.view.output.OutputReceipt.PROMOTION_HEADER;
+import static store.view.output.OutputReceipt.PROMOTION_PRODUCT;
+import static store.view.output.OutputReceipt.PURCHASE_HEADER;
+import static store.view.output.OutputReceipt.PURCHASE_PRODUCT;
+import static store.view.output.OutputReceipt.START_RECEIPT;
+import static store.view.output.OutputReceipt.TOTAL_AMOUNT;
 
+import java.util.List;
 import store.domain.product.dto.GetProductDto;
 import store.domain.product.dto.GetProductsDto;
+import store.domain.receipt.dto.GetAmountDto;
+import store.domain.receipt.dto.GetPromotionProductDto;
+import store.domain.receipt.dto.GetPurchaseProductDto;
+import store.domain.receipt.dto.GetReceiptDto;
 
 public class OutputView {
 
@@ -52,5 +67,40 @@ public class OutputView {
     public void printAddPromotionProduct(String name) {
         System.out.printf(String.format(ADD_PROMOTION_PRODUCT_COUNT.message, name));
         printNewLine();
+    }
+
+    public void printReceipt(GetReceiptDto receipt) {
+        System.out.println(START_RECEIPT.message);
+        System.out.println(PURCHASE_HEADER.message);
+        printPurchaseProducts(receipt.purchaseProducts());
+        printPromotionProducts(receipt.promotionProducts());
+        printAmount(receipt.amount());
+    }
+
+    private void printPurchaseProducts(List<GetPurchaseProductDto> getPurchaseProductDtos) {
+        getPurchaseProductDtos.forEach(purchaseProduct -> {
+            System.out.printf(PURCHASE_PRODUCT.message, purchaseProduct.name(), purchaseProduct.quantity(),
+                    purchaseProduct.quantity() * purchaseProduct.price());
+            printNewLine();
+        });
+    }
+
+    private void printPromotionProducts(List<GetPromotionProductDto> getPromotionProductDtos) {
+        System.out.println(PROMOTION_HEADER.message);
+        getPromotionProductDtos.forEach(promotionProduct -> {
+            if (promotionProduct.count() > 0) {
+                System.out.printf(PROMOTION_PRODUCT.message, promotionProduct.name(), promotionProduct.count());
+                printNewLine();
+            }
+        });
+    }
+
+    private void printAmount(GetAmountDto amount) {
+        printNewLine();
+        System.out.println(AMOUNT_HEADER.message);
+        System.out.printf(TOTAL_AMOUNT.message, amount.totalCount(), amount.totalPrice());
+        System.out.printf(PROMOTION_DISCOUNT_AMOUNT.message, amount.promotionDiscountPrice());
+        System.out.printf(MEMBERSHIP_DISCOUNT_AMOUNT.message, amount.membershipDiscountPrice());
+        System.out.printf(PAY_AMOUNT.message, amount.finalPrice());
     }
 }

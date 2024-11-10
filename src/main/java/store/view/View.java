@@ -7,6 +7,7 @@ import static store.view.output.Output.PURCHASE;
 import static store.view.output.Output.WELCOME;
 
 import store.domain.product.dto.GetProductsDto;
+import store.domain.receipt.dto.GetReceiptDto;
 import store.view.input.Answer;
 import store.view.input.InputView;
 import store.view.output.OutputView;
@@ -59,6 +60,12 @@ public class View {
         outputView.printNewLine();
         outputView.printMessage(CONTINUE);
 
-        return Answer.from(inputView.userInput());
+        Answer answer = Answer.from(inputView.userInput());
+        outputView.printNewLine();
+        return answer;
+    }
+
+    public void outputReceipt(GetReceiptDto receipt) {
+        outputView.printReceipt(receipt);
     }
 }

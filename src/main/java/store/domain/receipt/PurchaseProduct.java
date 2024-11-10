@@ -1,6 +1,7 @@
 package store.domain.receipt;
 
 import store.domain.product.Products;
+import store.domain.receipt.dto.GetPurchaseProductDto;
 
 public class PurchaseProduct {
     private String name;
@@ -43,5 +44,9 @@ public class PurchaseProduct {
 
     public int getPrices() {
         return price * count;
+    }
+
+    public GetPurchaseProductDto getPurchaseProductDto() {
+        return new GetPurchaseProductDto(name, count, price);
     }
 }
