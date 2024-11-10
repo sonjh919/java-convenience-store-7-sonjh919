@@ -1,5 +1,6 @@
 package store.view.input;
 
+import static store.global.exception.ExceptionMessage.INVALID_INPUT;
 import static store.global.exception.ExceptionMessage.INVALID_YES_OR_NO;
 
 public enum Answer {
@@ -18,7 +19,7 @@ public enum Answer {
                 return answer;
             }
         }
-        throw new IllegalArgumentException(INVALID_YES_OR_NO.message);
+        throw new IllegalArgumentException(INVALID_INPUT.message);
     }
 
     public boolean isNo() {
