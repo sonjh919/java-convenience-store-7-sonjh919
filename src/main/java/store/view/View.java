@@ -21,7 +21,7 @@ public class View {
         this.outputView = outputView;
     }
 
-    public void outputProducts(GetProductsDto products) {
+    public void outputProducts(final GetProductsDto products) {
         outputView.printMessage(WELCOME);
         outputView.printMessage(PRODUCT_LIST);
 
@@ -35,14 +35,14 @@ public class View {
         return inputView.userInput();
     }
 
-    public Answer inputShortageProduct(String name, int shortage) {
+    public Answer inputShortageProduct(final String name, final int shortage) {
         outputView.printNewLine();
         outputView.printShortage(name, shortage);
 
         return Answer.from(inputView.userInput());
     }
 
-    public Answer inputAddPromotionProduct(String name) {
+    public Answer inputAddPromotionProduct(final String name) {
         outputView.printNewLine();
         outputView.printAddPromotionProduct(name);
 
@@ -65,7 +65,7 @@ public class View {
         return answer;
     }
 
-    public void outputReceipt(GetReceiptDto receipt) {
+    public void outputReceipt(final GetReceiptDto receipt) {
         outputView.printReceipt(receipt);
     }
 }

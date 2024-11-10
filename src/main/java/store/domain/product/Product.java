@@ -9,14 +9,14 @@ public class Product {
     private int quantity;
     private Promotion promotion;
 
-    private Product(String name, int price, int quantity, Promotion promotion) {
+    private Product(final String name, final int price, final int quantity, final Promotion promotion) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.promotion = promotion;
     }
 
-    public static Product of(String name, int price, int quantity, Promotion promotion) {
+    public static Product of(final String name, final int price, final int quantity, final Promotion promotion) {
         return new Product(name, price, quantity, promotion);
     }
 
@@ -25,7 +25,7 @@ public class Product {
         return new GetProductDto(name, price, quantity, promotion.getName());
     }
 
-    public boolean isSameName(String name) {
+    public boolean isSameName(final String name) {
         return this.name.equals(name);
     }
 
@@ -41,12 +41,12 @@ public class Product {
         return promotion.isValidPromotionDate();
     }
 
-    public int countMaxPromotionProduct(int promotionCount) {
-        return (quantity / promotionCount)*promotionCount;
+    public int countMaxPromotionProduct(final int promotionCount) {
+        return (quantity / promotionCount) * promotionCount;
     }
 
     public int getQuantity() {
-        if(hasPromotion() && !isValidPromotionDate()) {
+        if (hasPromotion() && !isValidPromotionDate()) {
             return 0;
         }
         return quantity;
@@ -60,7 +60,7 @@ public class Product {
         return promotion;
     }
 
-    public int reduceQuantity(int count) {
+    public int reduceQuantity(final int count) {
         quantity -= count;
         if (quantity < 0) {
             int shortage = quantity;

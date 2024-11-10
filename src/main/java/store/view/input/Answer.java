@@ -8,11 +8,11 @@ public enum Answer {
 
     final String answer;
 
-    Answer(String answer) {
+    Answer(final String answer) {
         this.answer = answer;
     }
 
-    public static Answer from(String input) {
+    public static Answer from(final String input) {
         for (Answer answer : Answer.values()) {
             if (answer.answer.equals(input)) {
                 return answer;

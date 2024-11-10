@@ -9,14 +9,14 @@ public class PromotionProduct {
     private int price;
     private Promotion promotion;
 
-    private PromotionProduct(String name, int count, int price, Promotion promotion) {
+    private PromotionProduct(final String name, final int count, final int price, final Promotion promotion) {
         this.name = name;
         this.count = count;
         this.price = price;
         this.promotion = promotion;
     }
 
-    public static PromotionProduct of(String name, int count, int price, Promotion promotion) {
+    public static PromotionProduct of(final String name, final int count, final int price, final Promotion promotion) {
         return new PromotionProduct(name, count, price, promotion);
     }
 

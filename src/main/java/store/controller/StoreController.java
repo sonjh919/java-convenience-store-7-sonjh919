@@ -45,17 +45,22 @@ public class StoreController {
         return PurchaseProducts.from(view.purchase());
     }
 
-    private void applyPromotionDiscount(PurchaseProducts purchaseProducts) {
+    private void applyPromotionDiscount(final PurchaseProducts purchaseProducts) {
         purchaseProducts.getPurchaseProducts().forEach(purchaseProduct -> {
             if (products.canApplyPromotion(purchaseProduct)) {
                 checkPromotionProductShortage(purchaseProduct);
                 checkPromotionQuantityRequirement(purchaseProduct);
-                receipt.addPromotionProduct(
-                        PromotionProduct.of(purchaseProduct.getName(), products.countPromotionProduct(purchaseProduct),
-                                products.getPriceByName(purchaseProduct.getName()), products.getPromotionByName(purchaseProduct)));
+                addPRomotionProduct(purchaseProduct);
             }
             receipt.addPurchaseProduct(purchaseProduct);
         });
+    }
+
+    private void addPRomotionProduct(PurchaseProduct purchaseProduct) {
+        receipt.addPromotionProduct(
+                PromotionProduct.of(purchaseProduct.getName(), products.countPromotionProduct(purchaseProduct),
+                        products.getPriceByName(purchaseProduct.getName()),
+                        products.getPromotionByName(purchaseProduct)));
     }
 
     private void applyMembershipDiscount() {
@@ -68,7 +73,7 @@ public class StoreController {
         return (getValidInput(view::inputMembershipDiscount)).isYes();
     }
 
-    private void checkPromotionProductShortage(PurchaseProduct purchaseProduct) {
+    private void checkPromotionProductShortage(final PurchaseProduct purchaseProduct) {
         int shortage = products.calculateShortageProduct(purchaseProduct);
         if (shortage > 0) {
             if (reduceCountForShortageProduct(purchaseProduct.getName(), shortage)) {
@@ -77,19 +82,19 @@ public class StoreController {
         }
     }
 
-    private void checkPromotionQuantityRequirement(PurchaseProduct purchaseProduct) {
+    private void checkPromotionQuantityRequirement(final PurchaseProduct purchaseProduct) {
         if (products.isPromotionQuantityRequirement(purchaseProduct)) {
-            if (addPromotionProduct(purchaseProduct.getName())) {
+            if (shouldAddPromotionProduct(purchaseProduct.getName())) {
                 purchaseProduct.increaseCount();
             }
         }
     }
 
-    private boolean reduceCountForShortageProduct(String name, int shortage) {
+    private boolean reduceCountForShortageProduct(final String name, final int shortage) {
         return (getValidInput(() -> view.inputShortageProduct(name, shortage))).isNo();
     }
 
-    private boolean addPromotionProduct(String name) {
+    private boolean shouldAddPromotionProduct(final String name) {
         return (getValidInput(() -> view.inputAddPromotionProduct(name))).isYes();
     }
 
@@ -97,7 +102,7 @@ public class StoreController {
         view.outputReceipt(receipt.getReceipt());
     }
 
-    private void manageProducts(PurchaseProducts purchaseProducts) {
+    private void manageProducts(final PurchaseProducts purchaseProducts) {
         purchaseProducts.getPurchaseProducts().forEach(products::reduceProductQuantity);
     }
 }

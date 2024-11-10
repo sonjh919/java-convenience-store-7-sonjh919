@@ -3,9 +3,9 @@ package store.global.config;
 import store.controller.StoreController;
 import store.domain.product.Products;
 import store.domain.promotion.Promotions;
+import store.view.View;
 import store.view.input.InputView;
 import store.view.output.OutputView;
-import store.view.View;
 
 public enum AppConfig {
     INSTANCE;

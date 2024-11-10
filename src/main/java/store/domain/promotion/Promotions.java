@@ -10,13 +10,13 @@ public enum Promotions {
 
     private final List<Promotion> promotions = new ArrayList<>();
 
-    public Promotions from(List<Promotion> promotions) {
+    public Promotions from(final List<Promotion> promotions) {
         this.promotions.clear();
         this.promotions.addAll(promotions);
         return this;
     }
 
-    public Promotion getPromotionByName(String inputPromotion) {
+    public Promotion getPromotionByName(final String inputPromotion) {
         return promotions.stream()
                 .filter(promotion -> promotion.isSameName(inputPromotion))
                 .findFirst()

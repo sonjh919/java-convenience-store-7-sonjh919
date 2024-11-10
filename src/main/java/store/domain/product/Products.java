@@ -14,7 +14,7 @@ public enum Products {
 
     private final List<Product> products = new ArrayList<>();
 
-    public Products from(List<Product> products) {
+    public Products from(final List<Product> products) {
         this.products.clear();
         this.products.addAll(products);
         return this;
@@ -26,7 +26,7 @@ public enum Products {
                 .toList());
     }
 
-    public boolean canApplyPromotion(PurchaseProduct purchaseProduct) {
+    public boolean canApplyPromotion(final PurchaseProduct purchaseProduct) {
         Product product = findPromotionProductByName(purchaseProduct);
         if (product == null) {
             return false;
@@ -34,32 +34,32 @@ public enum Products {
         return product.isValidPromotionDate();
     }
 
-    public int calculateShortageProduct(PurchaseProduct purchaseProduct) {
+    public int calculateShortageProduct(final PurchaseProduct purchaseProduct) {
         int promotionCount = getPromotionCount(purchaseProduct);
         Product product = findPromotionProductByName(purchaseProduct);
         int countPromotionProduct = product.countMaxPromotionProduct(promotionCount);
-        if(countPromotionProduct == 0) {
+        if (countPromotionProduct == 0) {
             return 0;
         }
         return purchaseProduct.getCount() - countPromotionProduct;
     }
 
-    public int countPromotionProduct(PurchaseProduct purchaseProduct) {
+    public int countPromotionProduct(final PurchaseProduct purchaseProduct) {
         Product product = findPromotionProductByName(purchaseProduct);
-        return Math.min(product.getQuantity(), purchaseProduct.getCount())/getPromotionCount(purchaseProduct);
+        return Math.min(product.getQuantity(), purchaseProduct.getCount()) / getPromotionCount(purchaseProduct);
     }
 
-    public boolean isPromotionQuantityRequirement(PurchaseProduct purchaseProduct) {
+    public boolean isPromotionQuantityRequirement(final PurchaseProduct purchaseProduct) {
         Product product = findPromotionProductByName(purchaseProduct);
         int promotionCount = getPromotionCount(purchaseProduct);
 
-        if((purchaseProduct.getCount() % promotionCount) + 1 == promotionCount) {
+        if ((purchaseProduct.getCount() % promotionCount) + 1 == promotionCount) {
             return purchaseProduct.getCount() + 1 <= product.getQuantity();
         }
         return false;
     }
 
-    public int getPriceByName(String name) {
+    public int getPriceByName(final String name) {
         return products.stream()
                 .filter(product -> product.isSameName(name))
                 .findFirst()
@@ -67,16 +67,16 @@ public enum Products {
                 .orElseThrow(() -> new IllegalArgumentException(NON_EXISTENT_PRODUCT.message));
     }
 
-    public Promotion getPromotionByName(PurchaseProduct purchaseProduct) {
+    public Promotion getPromotionByName(final PurchaseProduct purchaseProduct) {
         Product product = findPromotionProductByName(purchaseProduct);
         return product.getPromotion();
     }
 
-    public void reduceProductQuantity(PurchaseProduct purchaseProduct) {
+    public void reduceProductQuantity(final PurchaseProduct purchaseProduct) {
         Product product = findPromotionProductByName(purchaseProduct);
         Product nullPromotionProduct = findNullPromotionProductByName(purchaseProduct);
 
-        if(isNullOrExhausted(product)) {
+        if (isNullOrExhausted(product)) {
             nullPromotionProduct.reduceQuantity(purchaseProduct.getCount());
             return;
         }
@@ -84,43 +84,43 @@ public enum Products {
         reduceProductOfShortage(product, nullPromotionProduct, purchaseProduct);
     }
 
-    public void validateExistProducts(PurchaseProduct purchaseProduct) {
+    public void validateExistProducts(final PurchaseProduct purchaseProduct) {
         validateIsAvailableProduct(purchaseProduct);
         validateCanPurchaseProduct(purchaseProduct);
     }
 
-    private void validateIsAvailableProduct(PurchaseProduct purchaseProduct) {
+    private void validateIsAvailableProduct(final PurchaseProduct purchaseProduct) {
         findProductsByName(purchaseProduct).stream()
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(NON_EXISTENT_PRODUCT.message));
     }
 
-    private void validateCanPurchaseProduct(PurchaseProduct purchaseProduct) {
+    private void validateCanPurchaseProduct(final PurchaseProduct purchaseProduct) {
         if (getTotalQuantity(purchaseProduct) < purchaseProduct.getCount()) {
             throw new IllegalArgumentException(EXCEED_PRODUCT_COUNT.message);
         }
     }
 
-    private int getTotalQuantity(PurchaseProduct purchaseProduct) {
+    private int getTotalQuantity(final PurchaseProduct purchaseProduct) {
         return findProductsByName(purchaseProduct).stream()
                 .mapToInt(Product::getQuantity)
                 .sum();
     }
 
-    private List<Product> findProductsByName(PurchaseProduct purchaseProduct) {
+    private List<Product> findProductsByName(final PurchaseProduct purchaseProduct) {
         return products.stream()
                 .filter(product -> product.isSameName(purchaseProduct.getName()))
                 .toList();
     }
 
-    private Product findNullPromotionProductByName(PurchaseProduct purchaseProduct) {
+    private Product findNullPromotionProductByName(final PurchaseProduct purchaseProduct) {
         return findProductsByName(purchaseProduct).stream()
                 .filter(Product::isNullPromotion)
                 .findFirst().
                 orElse(null);
     }
 
-    private Product findPromotionProductByName(PurchaseProduct purchaseProduct) {
+    private Product findPromotionProductByName(final PurchaseProduct purchaseProduct) {
         return findProductsByName(purchaseProduct).stream()
                 .filter(Product::hasPromotion)
                 .filter(Product::isValidPromotionDate)
@@ -128,24 +128,25 @@ public enum Products {
                 orElse(null);
     }
 
-    private int getPromotionCount(PurchaseProduct purchaseProduct) {
+    private int getPromotionCount(final PurchaseProduct purchaseProduct) {
         Promotion promotion = findPromotionByProduct(purchaseProduct);
         return promotion.getPromotionCount();
     }
 
-    private Promotion findPromotionByProduct(PurchaseProduct purchaseProduct) {
+    private Promotion findPromotionByProduct(final PurchaseProduct purchaseProduct) {
         Product product = findPromotionProductByName(purchaseProduct);
         return product.getPromotion();
     }
 
-    private void reduceProductOfShortage(Product product, Product nullPromotionProduct, PurchaseProduct purchaseProduct) {
+    private void reduceProductOfShortage(final Product product, final Product nullPromotionProduct,
+                                         final PurchaseProduct purchaseProduct) {
         int shortage = product.reduceQuantity(purchaseProduct.getCount());
-        if(shortage < 0) {
+        if (shortage < 0) {
             nullPromotionProduct.reduceQuantity(-shortage);
         }
     }
 
-    private boolean isNullOrExhausted(Product product) {
+    private boolean isNullOrExhausted(final Product product) {
         return product == null || product.isExhaustion();
     }
 }

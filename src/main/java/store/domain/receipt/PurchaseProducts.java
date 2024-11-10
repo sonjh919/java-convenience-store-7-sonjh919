@@ -18,24 +18,24 @@ public class PurchaseProducts {
 
     private List<PurchaseProduct> purchaseProducts;
 
-    private PurchaseProducts(String products) {
+    private PurchaseProducts(final String products) {
         validateProductFormat(products);
         this.purchaseProducts = extractProducts(products);
         validateProducts();
     }
 
-    public static PurchaseProducts from(String purchaseProducts) {
+    public static PurchaseProducts from(final String purchaseProducts) {
         return new PurchaseProducts(purchaseProducts);
     }
 
-    private void validateProductFormat(String products) {
+    private void validateProductFormat(final String products) {
         Matcher matcher = PRODUCT_LIST_PATTERN.matcher(products);
         if (!matcher.matches()) {
             throw new IllegalArgumentException(INVALID_PURCHASE_FORMAT.message);
         }
     }
 
-    private List<PurchaseProduct> extractProducts(String products) {
+    private List<PurchaseProduct> extractProducts(final String products) {
         Matcher matcher = Pattern.compile(PRODUCT_REGEX).matcher(products);
         List<PurchaseProduct> purchaseProducts = new ArrayList<>();
 
@@ -46,7 +46,7 @@ public class PurchaseProducts {
         return purchaseProducts;
     }
 
-    private PurchaseProduct extractProduct(Matcher matcher) {
+    private PurchaseProduct extractProduct(final Matcher matcher) {
         String name = matcher.group(1);
         int count = validateIsInteger((matcher.group(2)));
         validateIsPositive(count);

@@ -9,7 +9,8 @@ import store.domain.promotion.Promotions;
 public class PromotionFactory extends ReadFile {
     private static final String PROMOTIONS_FILE_PATH = "src/main/resources/promotions.md";
 
-    private Promotion createPromotion(String name, int productPurchaseCount, int productGiftCount, LocalDate startDate, LocalDate endDate) {
+    private Promotion createPromotion(final String name, final int productPurchaseCount, final int productGiftCount,
+                                      final LocalDate startDate, final LocalDate endDate) {
         return Promotion.of(name, productPurchaseCount, productGiftCount, startDate, endDate);
     }
 
@@ -20,7 +21,7 @@ public class PromotionFactory extends ReadFile {
     }
 
     @Override
-    protected Promotion createInstance(String[] fields) {
+    protected Promotion createInstance(final String[] fields) {
         String name = fields[0];
         int productPurchaseCount = Integer.parseInt(fields[1]);
         int productGiftCount = Integer.parseInt(fields[2]);

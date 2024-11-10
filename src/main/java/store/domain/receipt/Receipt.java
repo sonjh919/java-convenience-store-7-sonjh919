@@ -21,11 +21,11 @@ public class Receipt {
         this.membershipDiscount = 0;
     }
 
-    public void addPurchaseProduct(PurchaseProduct purchaseProduct) {
+    public void addPurchaseProduct(final PurchaseProduct purchaseProduct) {
         purchaseProducts.add(purchaseProduct);
     }
 
-    public void addPromotionProduct(PromotionProduct promotionProduct) {
+    public void addPromotionProduct(final PromotionProduct promotionProduct) {
         promotionProducts.add(promotionProduct);
     }
 
@@ -64,7 +64,8 @@ public class Receipt {
     public void getMembershipDiscount() {
         int totalPrice = getTotalPrice();
         int promotionDiscountPrice = getTotalPromotionDiscountPrice();
-        int membershipDiscountPrice = (int) (((totalPrice - promotionDiscountPrice) * MEMBERSHIP_DISCOUNT_RATE)/1000)*1000;
+        int membershipDiscountPrice =
+                (int) (((totalPrice - promotionDiscountPrice) * MEMBERSHIP_DISCOUNT_RATE) / 1000) * 1000;
 
         this.membershipDiscount = validateMembershipDiscountPrice(totalPrice, promotionDiscountPrice,
                 membershipDiscountPrice);
@@ -77,7 +78,7 @@ public class Receipt {
                 .sum();
     }
 
-    private int validateMembershipDiscountPrice(int totalPrice, int promotionDiscountPrice,
+    private int validateMembershipDiscountPrice(final int totalPrice, final int promotionDiscountPrice,
                                                 int membershipDiscountPrice) {
         if (membershipDiscountPrice > MEMBERSHIP_DISCOUNT_LIMIT) {
             membershipDiscountPrice = MEMBERSHIP_DISCOUNT_LIMIT;

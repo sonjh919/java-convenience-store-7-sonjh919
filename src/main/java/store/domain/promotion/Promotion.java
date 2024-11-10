@@ -14,8 +14,9 @@ public class Promotion {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    private Promotion(String name, int productPurchaseCount, int productGiftCount, LocalDate startDate,
-                      LocalDate endDate) {
+    private Promotion(final String name, final int productPurchaseCount, final int productGiftCount,
+                      final LocalDate startDate,
+                      final LocalDate endDate) {
         this.name = name;
         this.productPurchaseCount = productPurchaseCount;
         this.productGiftCount = productGiftCount;
@@ -23,12 +24,13 @@ public class Promotion {
         this.endDate = endDate;
     }
 
-    public static Promotion of(String name, int productPurchaseCount, int productGiftCount, LocalDate startDate,
-                               LocalDate endDate) {
+    public static Promotion of(final String name, final int productPurchaseCount, final int productGiftCount,
+                               final LocalDate startDate,
+                               final LocalDate endDate) {
         return new Promotion(name, productPurchaseCount, productGiftCount, startDate, endDate);
     }
 
-    public boolean isSameName(String name) {
+    public boolean isSameName(final String name) {
         return this.name.equals(name);
     }
 
@@ -52,7 +54,8 @@ public class Promotion {
 
     public boolean isValidPromotionDate() {
         LocalDateTime currentDateTime = DateTimes.now();
-        return currentDateTime.isAfter(startDate.atStartOfDay()) && currentDateTime.isBefore(endDate.atTime(23, 59, 59));
+        return currentDateTime.isAfter(startDate.atStartOfDay()) && currentDateTime.isBefore(
+                endDate.atTime(23, 59, 59));
     }
 
     public int getPromotionCount() {

@@ -13,7 +13,7 @@ abstract class ReadFile<T> {
         return IOExceptionHandler(this::readLines).apply(path);
     }
 
-    private List<T> readLines(String path) throws Exception {
+    private List<T> readLines(final String path) throws Exception {
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             return br.lines()
                     .skip(1)
@@ -22,10 +22,10 @@ abstract class ReadFile<T> {
         }
     }
 
-    private T parseLine(String line) {
+    private T parseLine(final String line) {
         String[] fields = line.split(DELIMITER);
         return createInstance(fields);
     }
 
-    protected abstract T createInstance(String[] fields);
+    protected abstract T createInstance(final String[] fields);
 }

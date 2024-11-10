@@ -8,13 +8,13 @@ public class PurchaseProduct {
     private int count;
     private int price;
 
-    private PurchaseProduct(String name, int count, int price) {
+    private PurchaseProduct(final String name, final int count, final int price) {
         this.name = name;
         this.count = count;
         this.price = price;
     }
 
-    public static PurchaseProduct of(String name, int count) {
+    public static PurchaseProduct of(final String name, final int count) {
         return new PurchaseProduct(name, count, Products.INSTANCE.getPriceByName(name));
     }
 
@@ -30,7 +30,7 @@ public class PurchaseProduct {
         Products.INSTANCE.validateExistProducts(this);
     }
 
-    public void reduceCount(int shortage) {
+    public void reduceCount(final int shortage) {
         this.count = count - shortage;
     }
 

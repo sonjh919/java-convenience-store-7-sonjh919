@@ -13,7 +13,7 @@ public class ExceptionHandler {
         R apply(T t) throws Exception;
     }
 
-    public static <T, R> Function<T, R> IOExceptionHandler(CheckIoException<T, R> checkIoException) {
+    public static <T, R> Function<T, R> IOExceptionHandler(final CheckIoException<T, R> checkIoException) {
         return t -> {
             try {
                 return checkIoException.apply(t);

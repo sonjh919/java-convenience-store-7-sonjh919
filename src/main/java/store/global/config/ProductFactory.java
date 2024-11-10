@@ -9,7 +9,7 @@ import store.domain.promotion.Promotions;
 public class ProductFactory extends ReadFile {
     private static final String PRODUCTS_FILE_PATH = "src/main/resources/products.md";
 
-    private Product createProduct(String name, int price, int quantity, Promotion promotion) {
+    private Product createProduct(final String name, final int price, final int quantity, final Promotion promotion) {
         return Product.of(name, price, quantity, promotion);
     }
 
@@ -19,7 +19,7 @@ public class ProductFactory extends ReadFile {
     }
 
     @Override
-    protected Product createInstance(String[] fields) {
+    protected Product createInstance(final String[] fields) {
         String name = fields[0];
         int price = Integer.parseInt(fields[1]);
         int quantity = Integer.parseInt(fields[2]);
