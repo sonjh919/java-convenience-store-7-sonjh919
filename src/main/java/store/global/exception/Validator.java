@@ -10,7 +10,7 @@ public class Validator {
     }
 
     public static void validateIsPositive(int value) {
-        if (value <= 0) {
+        if (value < 0) {
             throw new IllegalArgumentException(ExceptionMessage.INVALID_INPUT.message);
         }
     }
