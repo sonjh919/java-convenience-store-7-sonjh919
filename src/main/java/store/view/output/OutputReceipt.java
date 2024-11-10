@@ -14,6 +14,7 @@ public enum OutputReceipt {
     TOTAL_AMOUNT("총구매액   \t\t\t%-,10d%-,10d" + NEW_LINE.message),
     PROMOTION_DISCOUNT_AMOUNT("행사할인   \t\t\t%,16d" + NEW_LINE.message),
     MEMBERSHIP_DISCOUNT_AMOUNT("멤버십할인  \t\t\t%,16d" + NEW_LINE.message),
+    MEMBERSHIP_DISCOUNT_ZERO("멤버십할인  \t\t\t\t\t\t  -0" + NEW_LINE.message),
     PAY_AMOUNT("내실돈    \t\t\t%,16d" + NEW_LINE.message);
 
     final String message;

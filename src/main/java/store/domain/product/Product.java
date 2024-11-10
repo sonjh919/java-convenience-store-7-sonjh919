@@ -45,10 +45,6 @@ public class Product {
         return (quantity / promotionCount)*promotionCount;
     }
 
-//    public int countPromotionProduct(int promotionCount) {
-//        return quantity / promotionCount;
-//    }
-
     public int getQuantity() {
         return quantity;
     }

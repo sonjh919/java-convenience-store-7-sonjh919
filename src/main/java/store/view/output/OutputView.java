@@ -8,6 +8,7 @@ import static store.view.output.Output.PRODUCT_SEPARATOR;
 import static store.view.output.Output.PROMOTION_SHORTAGE;
 import static store.view.output.OutputReceipt.AMOUNT_HEADER;
 import static store.view.output.OutputReceipt.MEMBERSHIP_DISCOUNT_AMOUNT;
+import static store.view.output.OutputReceipt.MEMBERSHIP_DISCOUNT_ZERO;
 import static store.view.output.OutputReceipt.PAY_AMOUNT;
 import static store.view.output.OutputReceipt.PROMOTION_DISCOUNT_AMOUNT;
 import static store.view.output.OutputReceipt.PROMOTION_HEADER;
@@ -70,6 +71,7 @@ public class OutputView {
     }
 
     public void printReceipt(GetReceiptDto receipt) {
+        printNewLine();
         System.out.println(START_RECEIPT.message);
         System.out.println(PURCHASE_HEADER.message);
         printPurchaseProducts(receipt.purchaseProducts());
@@ -96,11 +98,18 @@ public class OutputView {
     }
 
     private void printAmount(GetAmountDto amount) {
-        printNewLine();
         System.out.println(AMOUNT_HEADER.message);
         System.out.printf(TOTAL_AMOUNT.message, amount.totalCount(), amount.totalPrice());
-        System.out.printf(PROMOTION_DISCOUNT_AMOUNT.message, amount.promotionDiscountPrice());
-        System.out.printf(MEMBERSHIP_DISCOUNT_AMOUNT.message, amount.membershipDiscountPrice());
+        System.out.printf(PROMOTION_DISCOUNT_AMOUNT.message, -amount.promotionDiscountPrice());
+        printMembershipDiscount(amount.membershipDiscountPrice());
         System.out.printf(PAY_AMOUNT.message, amount.finalPrice());
+    }
+
+    private void printMembershipDiscount(int membershipDiscountPrice) {
+        if (membershipDiscountPrice == 0) {
+            System.out.printf(MEMBERSHIP_DISCOUNT_ZERO.message);
+            return;
+        }
+        System.out.printf(MEMBERSHIP_DISCOUNT_AMOUNT.message, -membershipDiscountPrice);
     }
 }
