@@ -19,7 +19,7 @@ public class ExceptionHandler {
                 return checkIoException.apply(t);
             } catch (Exception e) {
                 OutputView.printError(INVALID_FILE.message);
-                throw new RuntimeException(e);
+                throw new IllegalArgumentException(e);
             }
         };
     }
