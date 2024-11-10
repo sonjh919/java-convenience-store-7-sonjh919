@@ -11,6 +11,7 @@ import static store.view.output.OutputReceipt.MEMBERSHIP_DISCOUNT_AMOUNT;
 import static store.view.output.OutputReceipt.MEMBERSHIP_DISCOUNT_ZERO;
 import static store.view.output.OutputReceipt.PAY_AMOUNT;
 import static store.view.output.OutputReceipt.PROMOTION_DISCOUNT_AMOUNT;
+import static store.view.output.OutputReceipt.PROMOTION_DISCOUNT_ZERO;
 import static store.view.output.OutputReceipt.PROMOTION_HEADER;
 import static store.view.output.OutputReceipt.PROMOTION_PRODUCT;
 import static store.view.output.OutputReceipt.PURCHASE_HEADER;
@@ -100,9 +101,17 @@ public class OutputView {
     private void printAmount(GetAmountDto amount) {
         System.out.println(AMOUNT_HEADER.message);
         System.out.printf(TOTAL_AMOUNT.message, amount.totalCount(), amount.totalPrice());
-        System.out.printf(PROMOTION_DISCOUNT_AMOUNT.message, -amount.promotionDiscountPrice());
+        printPromotionDiscount(amount.promotionDiscountPrice());
         printMembershipDiscount(amount.membershipDiscountPrice());
         System.out.printf(PAY_AMOUNT.message, amount.finalPrice());
+    }
+
+    private void printPromotionDiscount(int promotionDiscountPrice) {
+        if (promotionDiscountPrice == 0) {
+            System.out.printf(PROMOTION_DISCOUNT_ZERO.message);
+            return;
+        }
+        System.out.printf(PROMOTION_DISCOUNT_AMOUNT.message, -promotionDiscountPrice);
     }
 
     private void printMembershipDiscount(int membershipDiscountPrice) {
