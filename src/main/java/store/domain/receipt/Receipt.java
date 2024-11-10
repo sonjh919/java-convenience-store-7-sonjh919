@@ -64,7 +64,7 @@ public class Receipt {
     public void getMembershipDiscount() {
         int totalPrice = getTotalPrice();
         int promotionDiscountPrice = getTotalPromotionDiscountPrice();
-        int membershipDiscountPrice = (int) ((totalPrice - promotionDiscountPrice) * MEMBERSHIP_DISCOUNT_RATE);
+        int membershipDiscountPrice = (int) (((totalPrice - promotionDiscountPrice) * MEMBERSHIP_DISCOUNT_RATE)/1000)*1000;
 
         this.membershipDiscount = validateMembershipDiscountPrice(totalPrice, promotionDiscountPrice,
                 membershipDiscountPrice);
