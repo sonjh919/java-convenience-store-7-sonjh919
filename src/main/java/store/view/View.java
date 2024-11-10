@@ -58,6 +58,7 @@ public class View {
     public Answer inputContinue() {
         outputView.printNewLine();
         outputView.printMessage(CONTINUE);
+
         return Answer.from(inputView.userInput());
     }
 }

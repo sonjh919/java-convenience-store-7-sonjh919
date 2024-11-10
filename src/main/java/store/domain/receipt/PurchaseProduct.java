@@ -29,7 +29,7 @@ public class PurchaseProduct {
         return price;
     }
 
-    public void validateExistProducts() {
+    public void validateIsExistProducts() {
         Products.INSTANCE.validateExistProducts(this);
     }
 

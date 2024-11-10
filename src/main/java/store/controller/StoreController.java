@@ -35,7 +35,7 @@ public class StoreController {
 
             manageProducts(purchaseProducts);
 
-        } while (!getValidInput(view::inputContinue).isNo());
+        } while (getValidInput(view::inputContinue).isYes());
     }
 
     private void showProducts() {
@@ -43,10 +43,7 @@ public class StoreController {
     }
 
     private PurchaseProducts purchase() {
-        PurchaseProducts purchaseProducts = PurchaseProducts.from(view.purchase());
-        purchaseProducts.isAvailableProducts();
-
-        return purchaseProducts;
+        return PurchaseProducts.from(view.purchase());
     }
 
     private void applyPromotionDiscount(PurchaseProducts purchaseProducts) {

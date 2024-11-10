@@ -1,5 +1,6 @@
 package store.domain.receipt;
 
+import static store.global.exception.ExceptionMessage.INVALID_INPUT;
 import static store.global.exception.ExceptionMessage.INVALID_PURCHASE_FORMAT;
 import static store.global.exception.Validator.validateIsInteger;
 import static store.global.exception.Validator.validateIsPositive;
@@ -20,6 +21,7 @@ public class PurchaseProducts {
     private PurchaseProducts(String products) {
         validateProductFormat(products);
         this.purchaseProducts = extractProducts(products);
+        validateProducts();
     }
 
     public static PurchaseProducts from(String purchaseProducts) {
@@ -52,8 +54,22 @@ public class PurchaseProducts {
         return PurchaseProduct.of(name, count);
     }
 
-    public void isAvailableProducts() {
-        purchaseProducts.forEach(PurchaseProduct::validateExistProducts);
+    private void validateProducts() {
+        validateIsExistProduct();
+        validateIsDuplicateProduct();
+    }
+
+    private void validateIsDuplicateProduct() {
+        if (purchaseProducts.size() != purchaseProducts.stream()
+                .map(PurchaseProduct::getName)
+                .distinct()
+                .count()) {
+            throw new IllegalArgumentException(INVALID_INPUT.message);
+        }
+    }
+
+    private void validateIsExistProduct() {
+        purchaseProducts.forEach(PurchaseProduct::validateIsExistProducts);
     }
 
     public List<PurchaseProduct> getPurchaseProducts() {
