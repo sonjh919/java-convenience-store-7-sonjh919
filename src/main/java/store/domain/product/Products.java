@@ -123,6 +123,7 @@ public enum Products {
     private Product findPromotionProductByName(PurchaseProduct purchaseProduct) {
         return findProductsByName(purchaseProduct).stream()
                 .filter(Product::hasPromotion)
+                .filter(Product::isValidPromotionDate)
                 .findFirst().
                 orElse(null);
     }
