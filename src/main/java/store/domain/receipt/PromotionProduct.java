@@ -35,4 +35,8 @@ public class PromotionProduct {
     public GetPromotionProductDto getPromotionProductDto() {
         return new GetPromotionProductDto(name, count, price, promotion.getPromotionCount());
     }
+
+    public boolean hasCount() {
+        return count > 0;
+    }
 }

@@ -72,6 +72,7 @@ public class Receipt {
 
     private int getTotalPromotionDiscountPrice() {
         return promotionProducts.stream()
+                .filter(PromotionProduct::hasCount)
                 .mapToInt(PromotionProduct::getTotalPrices)
                 .sum();
     }
@@ -96,6 +97,7 @@ public class Receipt {
 
     private int getPromotionDiscountPrice() {
         return promotionProducts.stream()
+                .filter(PromotionProduct::hasCount)
                 .mapToInt(PromotionProduct::getPrices)
                 .sum();
     }
