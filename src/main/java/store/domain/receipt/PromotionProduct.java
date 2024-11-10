@@ -24,10 +24,6 @@ public class PromotionProduct {
         return name;
     }
 
-    public int getCount() {
-        return count;
-    }
-
     public int getPrices() {
         return price * count;
     }

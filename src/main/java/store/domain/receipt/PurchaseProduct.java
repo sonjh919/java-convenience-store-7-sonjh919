@@ -26,10 +26,6 @@ public class PurchaseProduct {
         return count;
     }
 
-    public int getPrice() {
-        return price;
-    }
-
     public void validateIsExistProducts() {
         Products.INSTANCE.validateExistProducts(this);
     }
