@@ -39,9 +39,9 @@ public class StoreControllerTest extends NsTest {
                 Arguments.of(new String[]{"[콜라-5]", "N", "Y", "N"}, "내실돈4,000"),
                 Arguments.of(new String[]{"[콜라-3],[에너지바-5]", "Y", "N"}, "내실돈9,000"),
                 Arguments.of(new String[]{"[감자칩-5]", "N", "Y", "N"}, "내실돈3,000"),
-                Arguments.of(new String[]{"[감자칩-5]", "Y", "Y", "N"}, "내실돈3,500"),
-                Arguments.of(new String[]{"[감자칩-6]", "Y", "Y", "N"}, "내실돈5,000"),
-                Arguments.of(new String[]{"[콜라-8]", "Y", "Y", "N"}, "내실돈5,000"),
+                Arguments.of(new String[]{"[감자칩-5]", "Y", "Y", "N"}, "내실돈4,500"),
+                Arguments.of(new String[]{"[감자칩-6]", "Y", "Y", "N"}, "내실돈6,000"),
+                Arguments.of(new String[]{"[콜라-8]", "Y", "Y", "N"}, "내실돈6,000"),
                 Arguments.of(new String[]{"[사이다-2],[감자칩-1]", "Y", "Y", "Y", "N"}, "내실돈3,500"),
                 Arguments.of(new String[]{
                         "[콜라-20],[사이다-15],[오렌지주스-9],[탄산수-5],[물-10],[비타민워터-6],[감자칩-10],[초코바-10],[에너지바-5],[정식도시락-8],[컵라면-11]",
