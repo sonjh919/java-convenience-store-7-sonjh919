@@ -69,6 +69,8 @@ public class Receipt {
 
         this.membershipDiscount = validateMembershipDiscountPrice(totalPrice, promotionDiscountPrice,
                 membershipDiscountPrice);
+
+        this.membershipDiscount = 0;
     }
 
     private int getTotalPromotionDiscountPrice() {
