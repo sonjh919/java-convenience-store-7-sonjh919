@@ -15,7 +15,9 @@ public class ProductFactory extends ReadFile {
 
     public Products createProducts() {
         List<Product> products = read(PRODUCTS_FILE_PATH);
-        return Products.INSTANCE.from(products);
+        Products.INSTANCE.from(products);
+        Products.INSTANCE.validateIsDuplicatePromotion();
+        return Products.INSTANCE;
     }
 
     @Override

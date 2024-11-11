@@ -69,7 +69,8 @@ public class Receipt {
 
         int membershipDiscountPrice = (int) ((totalPrice - tmp()) * MEMBERSHIP_DISCOUNT_RATE);
 //        System.out.println("totalPrice = " + totalPrice);
-//        System.out.println("tmp() = " + tmp());
+        System.out.println("tmp() = " + tmp());
+//        System.out.println("promotionDiscountPrice = " + promotionDiscountPrice);
 //        System.out.println("membershipDiscountPrice = " + membershipDiscountPrice);
 
         this.membershipDiscount = validateMembershipDiscountPrice(membershipDiscountPrice);

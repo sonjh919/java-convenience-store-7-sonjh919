@@ -156,4 +156,24 @@ public enum Products {
     private boolean isNullOrExhausted(final Product product) {
         return product == null || product.isExhaustion();
     }
+
+    public void validateIsDuplicatePromotion() {
+        products.forEach(product -> {
+            if (countPromotionProductByName(product) >1) {
+                System.out.println(product.getName());
+                throw new IllegalArgumentException(EXCEED_PRODUCT_COUNT.message);
+            }
+        });
+    }
+    private int countPromotionProductByName(final Product product) {
+        return countProductsByName(product).stream()
+                .filter((p) -> !p.getPromotion().isNullPromotion())
+                .toList().size();
+    }
+
+    private List<Product> countProductsByName(final Product product2) {
+        return products.stream()
+                .filter(product -> product.isSameName(product2.getName()))
+                .toList();
+    }
 }

@@ -41,7 +41,7 @@ public class Promotion {
     }
 
     public boolean isNullPromotion() {
-        return name.equals(PROMOTION_EMPTY);
+        return name.equals(PROMOTION_EMPTY) || name.equals(PROMOTION_NULL);
     }
 
     public boolean hasPromotion() {
@@ -65,4 +65,5 @@ public class Promotion {
     public int getProductGiftCount() {
         return productGiftCount;
     }
+
 }

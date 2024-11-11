@@ -70,4 +70,8 @@ public class Product {
     public boolean isExhaustion() {
         return quantity == 0;
     }
+
+    public String getName() {
+        return name;
+    }
 }
