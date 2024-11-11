@@ -104,9 +104,9 @@ public enum Products {
     }
 
     private void validateCanPurchaseProduct(final PurchaseProduct purchaseProduct) {
-//        if (getTotalQuantity(purchaseProduct) < purchaseProduct.getCount()) {
-//            throw new IllegalArgumentException(EXCEED_PRODUCT_COUNT.message);
-//        }
+        if (getTotalQuantity(purchaseProduct) < purchaseProduct.getCount()) {
+            throw new IllegalArgumentException(EXCEED_PRODUCT_COUNT.message);
+        }
     }
 
     private int getTotalQuantity(final PurchaseProduct purchaseProduct) {
