@@ -50,13 +50,13 @@ public class StoreController {
             if (products.canApplyPromotion(purchaseProduct)) {
                 checkPromotionProductShortage(purchaseProduct);
                 checkPromotionQuantityRequirement(purchaseProduct);
-                addPRomotionProduct(purchaseProduct);
+                addPromotionProduct(purchaseProduct);
             }
             receipt.addPurchaseProduct(purchaseProduct);
         });
     }
 
-    private void addPRomotionProduct(PurchaseProduct purchaseProduct) {
+    private void addPromotionProduct(PurchaseProduct purchaseProduct) {
         receipt.addPromotionProduct(
                 PromotionProduct.of(purchaseProduct.getName(), products.countPromotionProduct(purchaseProduct),
                         products.getPriceByName(purchaseProduct.getName()),
