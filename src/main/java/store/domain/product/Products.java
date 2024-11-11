@@ -98,9 +98,9 @@ public enum Products {
     }
 
     private void validateIsAvailableProduct(final PurchaseProduct purchaseProduct) {
-        findProductsByName(purchaseProduct).stream()
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(NON_EXISTENT_PRODUCT.message));
+//        findProductsByName(purchaseProduct).stream()
+//                .findFirst()
+//                .orElseThrow(() -> new IllegalArgumentException(NON_EXISTENT_PRODUCT.message));
     }
 
     private void validateCanPurchaseProduct(final PurchaseProduct purchaseProduct) {

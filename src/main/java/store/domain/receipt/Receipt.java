@@ -80,9 +80,9 @@ public class Receipt {
 
     private int validateMembershipDiscountPrice(final int totalPrice, final int promotionDiscountPrice,
                                                 int membershipDiscountPrice) {
-//        if (membershipDiscountPrice > MEMBERSHIP_DISCOUNT_LIMIT) {
-//            membershipDiscountPrice = MEMBERSHIP_DISCOUNT_LIMIT;
-//        }
+        if (membershipDiscountPrice > MEMBERSHIP_DISCOUNT_LIMIT) {
+            membershipDiscountPrice = MEMBERSHIP_DISCOUNT_LIMIT;
+        }
 
         if (totalPrice < promotionDiscountPrice + membershipDiscountPrice) {
             membershipDiscountPrice = totalPrice - promotionDiscountPrice;
