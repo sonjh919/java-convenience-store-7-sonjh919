@@ -29,7 +29,6 @@ public class PromotionProduct {
     }
 
     public int getTotalPrices() {
-//        return promotion.getPromotionCount() * price * count;
         return promotion.getProductGiftCount() * price * count;
     }
 
@@ -39,5 +38,9 @@ public class PromotionProduct {
 
     public boolean hasCount() {
         return count > 0;
+    }
+
+    public int getTotalPrices2() {
+        return promotion.getPromotionCount() * price * count;
     }
 }
