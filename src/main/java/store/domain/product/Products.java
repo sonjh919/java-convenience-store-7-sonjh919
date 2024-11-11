@@ -1,5 +1,6 @@
 package store.domain.product;
 
+import static store.global.exception.ExceptionMessage.DUPLICATE_PROMOTION;
 import static store.global.exception.ExceptionMessage.EXCEED_PRODUCT_COUNT;
 import static store.global.exception.ExceptionMessage.NON_EXISTENT_PRODUCT;
 
@@ -24,6 +25,14 @@ public enum Products {
         return new GetProductsDto(products.stream()
                 .map(Product::GetProductDto)
                 .toList());
+    }
+
+    public void validateIsDuplicatePromotion() {
+        products.forEach(product -> {
+            if (countPromotionProductByName(product) > 1) {
+                throw new IllegalArgumentException(DUPLICATE_PROMOTION.message);
+            }
+        });
     }
 
     public boolean canApplyPromotion(final PurchaseProduct purchaseProduct) {
@@ -76,13 +85,13 @@ public enum Products {
         Product product = findPromotionProductByName(purchaseProduct);
         Product nullPromotionProduct = findNullPromotionProductByName(purchaseProduct);
 
-        if(product==null){
+        if (product == null) {
             nullPromotionProduct.reduceQuantity(purchaseProduct.getCount());
             return;
         }
 
-        if(!product.isValidPromotionDate()){
-            if(isNullOrExhausted(nullPromotionProduct)){
+        if (!product.isValidPromotionDate()) {
+            if (isNullOrExhausted(nullPromotionProduct)) {
                 product.reduceQuantity(purchaseProduct.getCount());
                 return;
             }
@@ -157,23 +166,15 @@ public enum Products {
         return product == null || product.isExhaustion();
     }
 
-    public void validateIsDuplicatePromotion() {
-        products.forEach(product -> {
-            if (countPromotionProductByName(product) >1) {
-                System.out.println(product.getName());
-                throw new IllegalArgumentException(EXCEED_PRODUCT_COUNT.message);
-            }
-        });
-    }
-    private int countPromotionProductByName(final Product product) {
-        return countProductsByName(product).stream()
-                .filter((p) -> !p.getPromotion().isNullPromotion())
+    private int countPromotionProductByName(final Product PromotionProduct) {
+        return countProductsByName(PromotionProduct).stream()
+                .filter((product) -> !product.getPromotion().isNullPromotion())
                 .toList().size();
     }
 
-    private List<Product> countProductsByName(final Product product2) {
+    private List<Product> countProductsByName(final Product PromotionProduct) {
         return products.stream()
-                .filter(product -> product.isSameName(product2.getName()))
+                .filter(product -> product.isSameName(PromotionProduct.getName()))
                 .toList();
     }
 }

@@ -64,24 +64,10 @@ public class Receipt {
     public void getMembershipDiscount() {
         int totalPrice = getTotalPrice();
         int promotionDiscountPrice = getTotalPromotionDiscountPrice();
-//        int membershipDiscountPrice =
-//                (int) (((totalPrice - promotionDiscountPrice) * MEMBERSHIP_DISCOUNT_RATE) / 1000) * 1000;
-
-        int membershipDiscountPrice = (int) ((totalPrice - tmp()) * MEMBERSHIP_DISCOUNT_RATE);
-//        System.out.println("totalPrice = " + totalPrice);
-        System.out.println("tmp() = " + tmp());
-//        System.out.println("promotionDiscountPrice = " + promotionDiscountPrice);
-//        System.out.println("membershipDiscountPrice = " + membershipDiscountPrice);
+        int membershipDiscountPrice =
+                (int) ((totalPrice - promotionDiscountPrice) * MEMBERSHIP_DISCOUNT_RATE);
 
         this.membershipDiscount = validateMembershipDiscountPrice(membershipDiscountPrice);
-    }
-
-    private int tmp() {
-        return promotionProducts.stream()
-                .filter(PromotionProduct::hasCount)
-                .mapToInt(PromotionProduct::getTotalPrices2)
-                .sum();
-
     }
 
     private int getTotalPromotionDiscountPrice() {

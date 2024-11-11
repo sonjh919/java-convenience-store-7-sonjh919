@@ -29,7 +29,7 @@ public class PromotionProduct {
     }
 
     public int getTotalPrices() {
-        return promotion.getProductGiftCount() * price * count;
+        return promotion.getPromotionCount() * price * count;
     }
 
     public GetPromotionProductDto getPromotionProductDto() {
@@ -38,9 +38,5 @@ public class PromotionProduct {
 
     public boolean hasCount() {
         return count > 0;
-    }
-
-    public int getTotalPrices2() {
-        return promotion.getPromotionCount() * price * count;
     }
 }
