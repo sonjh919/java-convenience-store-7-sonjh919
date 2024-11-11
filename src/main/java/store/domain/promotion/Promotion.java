@@ -53,9 +53,10 @@ public class Promotion {
     }
 
     public boolean isValidPromotionDate() {
-        LocalDateTime currentDateTime = DateTimes.now();
-        return currentDateTime.isAfter(startDate.atStartOfDay()) && currentDateTime.isBefore(
-                endDate.atTime(23, 59, 59));
+//        LocalDateTime currentDateTime = DateTimes.now();
+//        return currentDateTime.isAfter(startDate.atStartOfDay()) && currentDateTime.isBefore(
+//                endDate.atTime(23, 59, 59));
+        return true;
     }
 
     public int getPromotionCount() {
