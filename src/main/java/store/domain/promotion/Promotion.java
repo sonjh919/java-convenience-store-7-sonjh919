@@ -61,4 +61,8 @@ public class Promotion {
     public int getPromotionCount() {
         return productPurchaseCount + productGiftCount;
     }
+
+    public int getProductGiftCount() {
+        return productGiftCount;
+    }
 }
