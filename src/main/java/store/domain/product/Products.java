@@ -76,11 +76,19 @@ public enum Products {
         Product product = findPromotionProductByName(purchaseProduct);
         Product nullPromotionProduct = findNullPromotionProductByName(purchaseProduct);
 
-        if (isNullOrExhausted(product)) {
+        if(product==null){
             nullPromotionProduct.reduceQuantity(purchaseProduct.getCount());
             return;
         }
 
+        if(!product.isValidPromotionDate()){
+            if(isNullOrExhausted(nullPromotionProduct)){
+                product.reduceQuantity(purchaseProduct.getCount());
+                return;
+            }
+            reduceProductOfShortage(nullPromotionProduct, product, purchaseProduct);
+            return;
+        }
         reduceProductOfShortage(product, nullPromotionProduct, purchaseProduct);
     }
 
@@ -123,7 +131,6 @@ public enum Products {
     private Product findPromotionProductByName(final PurchaseProduct purchaseProduct) {
         return findProductsByName(purchaseProduct).stream()
                 .filter(Product::hasPromotion)
-                .filter(Product::isValidPromotionDate)
                 .findFirst().
                 orElse(null);
     }
