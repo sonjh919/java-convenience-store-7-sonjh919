@@ -98,15 +98,15 @@ public enum Products {
     }
 
     private void validateIsAvailableProduct(final PurchaseProduct purchaseProduct) {
-//        findProductsByName(purchaseProduct).stream()
-//                .findFirst()
-//                .orElseThrow(() -> new IllegalArgumentException(NON_EXISTENT_PRODUCT.message));
+        findProductsByName(purchaseProduct).stream()
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(NON_EXISTENT_PRODUCT.message));
     }
 
     private void validateCanPurchaseProduct(final PurchaseProduct purchaseProduct) {
-        if (getTotalQuantity(purchaseProduct) < purchaseProduct.getCount()) {
-            throw new IllegalArgumentException(EXCEED_PRODUCT_COUNT.message);
-        }
+//        if (getTotalQuantity(purchaseProduct) < purchaseProduct.getCount()) {
+//            throw new IllegalArgumentException(EXCEED_PRODUCT_COUNT.message);
+//        }
     }
 
     private int getTotalQuantity(final PurchaseProduct purchaseProduct) {
