@@ -46,9 +46,6 @@ public class Product {
     }
 
     public int getQuantity() {
-//        if (hasPromotion() && !isValidPromotionDate()) {
-//            return 0;
-//        }
         return quantity;
     }
 
