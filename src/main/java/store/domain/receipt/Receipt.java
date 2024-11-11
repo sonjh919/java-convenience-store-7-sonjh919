@@ -38,10 +38,10 @@ public class Receipt {
     private GetAmountDto getAmountDto() {
         return new GetAmountDto(getTotalCount(),
                 getTotalPrice(),
-//                getPromotionDiscountPrice(),
-                0,
+                getPromotionDiscountPrice(),
                 membershipDiscount,
-                getTotalPrice() - getPromotionDiscountPrice() - membershipDiscount);
+//                getTotalPrice() - getPromotionDiscountPrice() - membershipDiscount);
+                getTotalPrice()-getPromotionDiscountPrice());
     }
 
     private List<GetPurchaseProductDto> getPurchaseProductDtos() {
