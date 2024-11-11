@@ -41,7 +41,7 @@ public class Receipt {
                 getPromotionDiscountPrice(),
                 membershipDiscount,
 //                getTotalPrice() - getPromotionDiscountPrice() - membershipDiscount);
-                getTotalPrice()-getPromotionDiscountPrice());
+                getTotalPrice()-membershipDiscount);
     }
 
     private List<GetPurchaseProductDto> getPurchaseProductDtos() {
